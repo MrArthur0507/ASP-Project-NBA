@@ -11,9 +11,9 @@ namespace ModelsLibrary.Models.DbModels
     public class Stat
     {      
         
-        public int GameId { get; set; }
+        public string GameId { get; set; }
         public Game Game { get; set; }
-        public int PlayerId { get; set; }
+        public string PlayerId { get; set; }
         public Player Player { get; set; }
 
         public int? Points { get; set; }

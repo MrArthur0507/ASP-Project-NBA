@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ModelsLibrary.Models.DbModels
+namespace ModelsLibrary.Models.ViewModels
 {
-    public class Team
+    public class TeamViewModel
     {
-        public string Id { get; set; }
-
         public string Abbreviation { get; set; }
 
         public string City { get; set; }
@@ -19,7 +17,5 @@ namespace ModelsLibrary.Models.DbModels
         public string FullName { get; set; }
 
         public string Name { get; set; }
-
-        public ICollection<Player> Players { get; set; }
     }
 }

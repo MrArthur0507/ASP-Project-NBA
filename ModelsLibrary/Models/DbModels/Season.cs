@@ -8,7 +8,7 @@ namespace ModelsLibrary.Models.DbModels
 {
     public class Season
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public int Year { get; set; }
 

@@ -263,7 +263,7 @@ namespace NBAProject.Data.Migrations
 
                     b.HasIndex("WinningTeamId");
 
-                    b.ToTable("Games");
+                    b.ToTable("Games", (string)null);
                 });
 
             modelBuilder.Entity("ModelsLibrary.Models.DbModels.Player", b =>
@@ -302,7 +302,7 @@ namespace NBAProject.Data.Migrations
 
                     b.HasIndex("TeamId");
 
-                    b.ToTable("Players");
+                    b.ToTable("Players", (string)null);
                 });
 
             modelBuilder.Entity("ModelsLibrary.Models.DbModels.Season", b =>
@@ -324,7 +324,7 @@ namespace NBAProject.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Seasons");
+                    b.ToTable("Seasons", (string)null);
                 });
 
             modelBuilder.Entity("ModelsLibrary.Models.DbModels.Stat", b =>
@@ -354,7 +354,7 @@ namespace NBAProject.Data.Migrations
 
                     b.HasIndex("PlayerId");
 
-                    b.ToTable("Stats");
+                    b.ToTable("Stats", (string)null);
                 });
 
             modelBuilder.Entity("ModelsLibrary.Models.DbModels.Team", b =>
@@ -387,7 +387,7 @@ namespace NBAProject.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Teams");
+                    b.ToTable("Teams", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

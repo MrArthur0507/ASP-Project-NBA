@@ -8,7 +8,7 @@ namespace ModelsLibrary.Models.DbModels
 {
     public class Player
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public string FirstName { get; set; }
 
