@@ -1,6 +1,30 @@
-﻿
+﻿@model List<Models.DbModels.Player>
 
 @{
     ViewData["Title"] = "Home Page";
 }
+
+<h1>Player List</h1>
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Height</th>
+            <th scope="col">Position</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var player in Model)
+        {
+            <tr>
+                <td class="fs-6">@player.FirstName</td>
+                <td>@player.LastName</td>
+                <td>@player.HeightFeet' @player.HeightInches"</td>
+                <td>@player.Position</td>
+            </tr>
+        }
+    </tbody>
+</table>
 

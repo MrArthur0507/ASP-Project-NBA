@@ -1,0 +1,35 @@
+﻿
+
+@model List<Models.DbModels.Team>
+
+@{
+    ViewData["Title"] = "Teams";
+}
+
+<h1>Player List</h1>
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Fullname</th>
+            <th scope="col">Abbreviation</th>
+            <th scope="col">City</th>
+            <th scope="col">Conference</th>
+            <th scope="col">Division</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var team in Model)
+        {
+                <tr>
+                    <td>@team.Name</td>
+                    <td>@team.Fullname</td>
+                    <td>@team.Abbreviation</td>
+                    <td>@team.City</td>
+                    <td>@team.Conference</td>
+                    <td>@team.Division</td>
+                </tr>
+        }
+    </tbody>
+</table>
