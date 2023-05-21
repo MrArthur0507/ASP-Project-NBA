@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Models.DbModels;
+using NBAProject.Data;
 using NBAProject.Models;
 using System.Diagnostics;
 
@@ -7,15 +9,17 @@ namespace NBAProject.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ApplicationDbContext _context;
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
-            return View();
+            List<Player> players = _context.Players.ToList();
+            return View(players);
         }
 
         public IActionResult Privacy()

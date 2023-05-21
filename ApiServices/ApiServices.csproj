@@ -7,12 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ModelsLibrary\ModelsLibrary.csproj" />
-    <ProjectReference Include="..\NBAProject\NBAProject.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="CRUDServices\CRUDClasses\" />
+    <ProjectReference Include="..\..\ApiModule\Models\Models.csproj" />
+    <ProjectReference Include="..\ProjectData\ProjectData.csproj" />
   </ItemGroup>
 
 </Project>

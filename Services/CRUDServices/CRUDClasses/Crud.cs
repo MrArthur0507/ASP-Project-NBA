@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Services.CRUDServices.CRUDClasses
 {
-    public class PlayerCrudService
+    public class Crud
     {
-       
+        
     }
 }

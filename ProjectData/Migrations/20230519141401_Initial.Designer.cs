@@ -9,18 +9,18 @@ using NBAProject.Data;
 
 #nullable disable
 
-namespace NBAProject.Data.Migrations
+namespace ProjectData.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230414132616_Third")]
-    partial class Third
+    [Migration("20230519141401_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.0")
+                .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -227,13 +227,10 @@ namespace NBAProject.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ModelsLibrary.Models.DbModels.Game", b =>
+            modelBuilder.Entity("Models.DbModels.Game", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -244,38 +241,72 @@ namespace NBAProject.Data.Migrations
                     b.Property<int>("HomeTeamScore")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SeasonId")
+                    b.Property<int>("Period")
                         .HasColumnType("int");
+
+                    b.Property<bool>("PostSeason")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Season")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TeamId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Time")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("VisitorTeamId")
                         .HasColumnType("int");
 
-                    b.Property<int>("VisitorTeamSccore")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WinningTeamId")
+                    b.Property<int>("VisitorTeamScore")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("HomeTeamId");
 
-                    b.HasIndex("SeasonId");
+                    b.HasIndex("TeamId");
 
                     b.HasIndex("VisitorTeamId");
-
-                    b.HasIndex("WinningTeamId");
 
                     b.ToTable("Games");
                 });
 
-            modelBuilder.Entity("ModelsLibrary.Models.DbModels.Player", b =>
+            modelBuilder.Entity("Models.DbModels.Meta", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("CurrentPage")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<int?>("NextPage")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PerPage")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TotalCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalPages")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Meta");
+                });
+
+            modelBuilder.Entity("Models.DbModels.Player", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -292,7 +323,6 @@ namespace NBAProject.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Position")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TeamId")
@@ -308,80 +338,24 @@ namespace NBAProject.Data.Migrations
                     b.ToTable("Players");
                 });
 
-            modelBuilder.Entity("ModelsLibrary.Models.DbModels.Season", b =>
+            modelBuilder.Entity("Models.DbModels.Team", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Year")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Seasons");
-                });
-
-            modelBuilder.Entity("ModelsLibrary.Models.DbModels.Stat", b =>
-                {
-                    b.Property<int>("GameId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PlayerId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Assists")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Blocks")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Points")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Rebounds")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Steals")
-                        .HasColumnType("int");
-
-                    b.HasKey("GameId", "PlayerId");
-
-                    b.HasIndex("PlayerId");
-
-                    b.ToTable("Stats");
-                });
-
-            modelBuilder.Entity("ModelsLibrary.Models.DbModels.Team", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Abbreviation")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("City")
-                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Conference")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Division")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FullName")
-                        .IsRequired()
+                    b.Property<string>("Fullname")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -444,40 +418,32 @@ namespace NBAProject.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ModelsLibrary.Models.DbModels.Game", b =>
+            modelBuilder.Entity("Models.DbModels.Game", b =>
                 {
-                    b.HasOne("ModelsLibrary.Models.DbModels.Team", "HomeTeam")
+                    b.HasOne("Models.DbModels.Team", "HomeTeam")
                         .WithMany()
                         .HasForeignKey("HomeTeamId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("ModelsLibrary.Models.DbModels.Season", null)
+                    b.HasOne("Models.DbModels.Team", null)
                         .WithMany("Games")
-                        .HasForeignKey("SeasonId");
+                        .HasForeignKey("TeamId");
 
-                    b.HasOne("ModelsLibrary.Models.DbModels.Team", "VisitorTeam")
+                    b.HasOne("Models.DbModels.Team", "VisitorTeam")
                         .WithMany()
                         .HasForeignKey("VisitorTeamId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("ModelsLibrary.Models.DbModels.Team", "WinningTeam")
-                        .WithMany()
-                        .HasForeignKey("WinningTeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("HomeTeam");
 
                     b.Navigation("VisitorTeam");
-
-                    b.Navigation("WinningTeam");
                 });
 
-            modelBuilder.Entity("ModelsLibrary.Models.DbModels.Player", b =>
+            modelBuilder.Entity("Models.DbModels.Player", b =>
                 {
-                    b.HasOne("ModelsLibrary.Models.DbModels.Team", "Team")
+                    b.HasOne("Models.DbModels.Team", "Team")
                         .WithMany("Players")
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -486,32 +452,10 @@ namespace NBAProject.Data.Migrations
                     b.Navigation("Team");
                 });
 
-            modelBuilder.Entity("ModelsLibrary.Models.DbModels.Stat", b =>
-                {
-                    b.HasOne("ModelsLibrary.Models.DbModels.Game", "Game")
-                        .WithMany()
-                        .HasForeignKey("GameId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("ModelsLibrary.Models.DbModels.Player", "Player")
-                        .WithMany()
-                        .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Game");
-
-                    b.Navigation("Player");
-                });
-
-            modelBuilder.Entity("ModelsLibrary.Models.DbModels.Season", b =>
+            modelBuilder.Entity("Models.DbModels.Team", b =>
                 {
                     b.Navigation("Games");
-                });
 
-            modelBuilder.Entity("ModelsLibrary.Models.DbModels.Team", b =>
-                {
                     b.Navigation("Players");
                 });
 #pragma warning restore 612, 618

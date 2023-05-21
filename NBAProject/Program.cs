@@ -1,3 +1,5 @@
+using ApiServices.Contracts;
+using ApiServices.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using NBAProject.Data;
@@ -7,12 +9,20 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseSqlServer(connectionString, assembly => assembly.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IPlayerSeeder, PlayerSeeder>();
+builder.Services.AddScoped<ITeamSeeder, TeamSeeder>();
+builder.Services.AddScoped<IFetchPlayer, FetchPlayer>();
+builder.Services.AddControllersWithViews();
+
+
+
+
 
 var app = builder.Build();
 
