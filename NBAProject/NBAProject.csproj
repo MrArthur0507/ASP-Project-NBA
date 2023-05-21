@@ -15,7 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\ApiModule\Models\Models.csproj" />
     <ProjectReference Include="..\ApiServices\ApiServices.csproj" />
-    <ProjectReference Include="..\ModelsLibrary\ModelsLibrary.csproj" />
+    <ProjectReference Include="..\ModelsLibrary\Services.csproj" />
     <ProjectReference Include="..\ProjectData\ProjectData.csproj" />
   </ItemGroup>
 

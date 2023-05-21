@@ -4,27 +4,47 @@
     ViewData["Title"] = "Home Page";
 }
 
-<h1>Player List</h1>
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 col-xs-6 border-primary mb-3">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-12">
+                        <div class="card-header text-white bg-info">
+                            <p class="card-text">
+                                <h5 class="card-title">
+                                    @item.FirstName @item.LastName
+                                </h5>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="https://www.logodesignlove.com/images/classic/nba-logo.jpg" width="100%" alt="@item.FirstName">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <p class="card-text "><b>Position: </b>@item.Position</p>
+                            <p class="card-text"><b>HeightFeet: </b>@item.HeightFeet</p>
+                            <p class="card-text"><b>HeightInches: </b>@item.HeightInches</p>
+                            <p class="card-text"><b>WeightPounds: </b>@item.WeightPounds</p>
 
-<table class="table table-striped">
-    <thead class="thead-dark">
-        <tr>
-            <th scope="col">First Name</th>
-            <th scope="col">Last Name</th>
-            <th scope="col">Height</th>
-            <th scope="col">Position</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var player in Model)
-        {
-            <tr>
-                <td class="fs-6">@player.FirstName</td>
-                <td>@player.LastName</td>
-                <td>@player.HeightFeet' @player.HeightInches"</td>
-                <td>@player.Position</td>
-            </tr>
-        }
-    </tbody>
-</table>
+
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card-footer ">
+                            <p class="card-text">
+                                <a class="btn btn-outline-primary float-right" asp-action="Details" asp-route-id="@item.Id">
+                                    <i class="bi bi-eye-fill"></i> Show Details
+                                </a>
+                               
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
 

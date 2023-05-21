@@ -3,6 +3,8 @@ using ApiServices.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using NBAProject.Data;
+using Services.Contracts;
+using Services.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +22,7 @@ builder.Services.AddScoped<ITeamSeeder, TeamSeeder>();
 builder.Services.AddScoped<IFetchPlayer, FetchPlayer>();
 builder.Services.AddScoped<IGameSeeder, GameSeeder>();
 builder.Services.AddScoped<IFetchGame, FetchGame>();
+builder.Services.AddScoped<IPlayerCrudOperations, PlayerCrudOperations>();
 builder.Services.AddControllersWithViews();
 
 

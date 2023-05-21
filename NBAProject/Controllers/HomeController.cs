@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ApiServices.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Models.DbModels;
+using Models.ViewModels;
 using NBAProject.Data;
 using NBAProject.Models;
+using Services.Contracts;
 using System.Diagnostics;
 
 namespace NBAProject.Controllers
@@ -9,19 +13,24 @@ namespace NBAProject.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ApplicationDbContext _context;
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
+        private readonly IPlayerCrudOperations _playerServices;
+        public HomeController(ILogger<HomeController> logger, IPlayerCrudOperations playerServices)
         {
             _logger = logger;
-            _context = context;
+            _playerServices = playerServices;
         }
 
-        public IActionResult Index()
+        public async Task<ViewResult> Index()
         {
-            List<Player> players = _context.Players.ToList();
-            return View(players);
+            
+            return View(await _playerServices.GetAll());
         }
 
+        public async Task<ViewResult> Details(int id)
+        {
+
+            return View(await _playerServices.GetById(id));
+        }
         public IActionResult Privacy()
         {
             return View();
