@@ -12,6 +12,8 @@ namespace NBAProject.Data
 
         public DbSet<Game> Games { get; set; }
 
+        public DbSet<Stat> Stats { get; set; }
+
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -26,6 +28,7 @@ namespace NBAProject.Data
             modelBuilder.Entity<Player>().Property(p => p.Id).ValueGeneratedNever();
             modelBuilder.Entity<Team>().Property(t => t.Id).ValueGeneratedNever();
             modelBuilder.Entity<Game>().Property(g => g.Id).ValueGeneratedNever();
+            modelBuilder.Entity<Stat>().Property(m => m.Id).ValueGeneratedNever();
             modelBuilder.Entity<Meta>().Property(m => m.Id).ValueGeneratedNever();
 
 
@@ -37,6 +40,11 @@ namespace NBAProject.Data
 
             modelBuilder.Entity<Game>()
             .HasOne(e => e.VisitorTeam)
+            .WithMany()
+            .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Stat>()
+            .HasOne(s => s.Team)
             .WithMany()
             .OnDelete(DeleteBehavior.Restrict);
         }

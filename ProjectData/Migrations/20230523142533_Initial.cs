@@ -194,7 +194,7 @@ namespace ProjectData.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: true),
                     HomeTeamId = table.Column<int>(type: "int", nullable: false),
                     HomeTeamScore = table.Column<int>(type: "int", nullable: false),
                     Period = table.Column<int>(type: "int", nullable: false),
@@ -250,6 +250,57 @@ namespace ProjectData.Migrations
                         principalTable: "Teams",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Stats",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    Assists = table.Column<int>(type: "int", nullable: true),
+                    Blocks = table.Column<int>(type: "int", nullable: true),
+                    DefensiveRebounds = table.Column<int>(type: "int", nullable: true),
+                    ThreePointFieldGoalPercentage = table.Column<double>(type: "float", nullable: true),
+                    ThreePointFieldGoalsAttempted = table.Column<int>(type: "int", nullable: true),
+                    ThreePointFieldGoalsMade = table.Column<int>(type: "int", nullable: true),
+                    FieldGoalPercentage = table.Column<double>(type: "float", nullable: true),
+                    FieldGoalsAttempted = table.Column<int>(type: "int", nullable: true),
+                    FieldGoalsMade = table.Column<int>(type: "int", nullable: true),
+                    FreeThrowPercentage = table.Column<double>(type: "float", nullable: true),
+                    FreeThrowsAttempted = table.Column<int>(type: "int", nullable: true),
+                    FreeThrowsMade = table.Column<int>(type: "int", nullable: true),
+                    GameId = table.Column<int>(type: "int", nullable: false),
+                    Minutes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OffensiveRebounds = table.Column<int>(type: "int", nullable: true),
+                    PersonalFouls = table.Column<int>(type: "int", nullable: true),
+                    PlayerId = table.Column<int>(type: "int", nullable: false),
+                    Points = table.Column<int>(type: "int", nullable: true),
+                    TotalRebounds = table.Column<int>(type: "int", nullable: true),
+                    Steals = table.Column<int>(type: "int", nullable: true),
+                    TeamId = table.Column<int>(type: "int", nullable: false),
+                    Turnovers = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Stats", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Stats_Games_GameId",
+                        column: x => x.GameId,
+                        principalTable: "Games",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Stats_Players_PlayerId",
+                        column: x => x.PlayerId,
+                        principalTable: "Players",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Stats_Teams_TeamId",
+                        column: x => x.TeamId,
+                        principalTable: "Teams",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -310,6 +361,21 @@ namespace ProjectData.Migrations
                 name: "IX_Players_TeamId",
                 table: "Players",
                 column: "TeamId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Stats_GameId",
+                table: "Stats",
+                column: "GameId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Stats_PlayerId",
+                table: "Stats",
+                column: "PlayerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Stats_TeamId",
+                table: "Stats",
+                column: "TeamId");
         }
 
         /// <inheritdoc />
@@ -331,19 +397,22 @@ namespace ProjectData.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Games");
-
-            migrationBuilder.DropTable(
                 name: "Meta");
 
             migrationBuilder.DropTable(
-                name: "Players");
+                name: "Stats");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Games");
+
+            migrationBuilder.DropTable(
+                name: "Players");
 
             migrationBuilder.DropTable(
                 name: "Teams");

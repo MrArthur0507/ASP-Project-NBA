@@ -1,0 +1,40 @@
+﻿@model Models.DbModels.Player
+
+<table class="table table-striped">
+    
+    <tbody>
+            <tr>
+                <td>FirstName</td>
+                <td>@Model.FirstName</td>
+            </tr>
+
+            <tr>
+                <td>LastName</td>
+                <td>@Model.LastName</td>
+            </tr>
+            <tr>
+                <td>HeightFeet</td>
+                <td>@Model.HeightFeet</td>
+            </tr>
+            <tr>
+                <td>HeightInches</td>
+                <td>@Model.HeightInches</td>
+            </tr>
+            <tr>
+                <td>Position</td>
+                <td>@Model.Position</td>
+            </tr>
+            <tr>
+                <td>TeamName</td>
+                <td>@Model.Team.Name</td>
+            </tr>
+            <tr>
+                <td>TeamAbbreviation</td>
+                <td>@Model.Team.Abbreviation</td>
+            </tr>
+            <tr>
+                <td>TeamDivision</td>
+                <td>@Model.Team.Division</td>
+            </tr>
+    </tbody>
+</table>

@@ -15,9 +15,9 @@ namespace ApiServices.Services
         private readonly ApplicationDbContext _context;
         public TeamSeeder(ApplicationDbContext context)
         {
-            _context = context;
+           
         }
-        public void Seed(PlayerRoot root)
+        public void Seed(PlayerRoot root, ApplicationDbContext _context)
         {
 
             foreach (var player in root.Data)
@@ -58,7 +58,7 @@ namespace ApiServices.Services
                 }
 
             }
-            _context.SaveChanges();
+           
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using NBAProject.Data;
+﻿using Models.ApiModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace ApiServices.Contracts
 {
-	public interface IFetchGame
-	{
-		public Task FetchGames(ApplicationDbContext context);
-	}
+    public interface IStatSeeder
+    {
+        public void Seed(StatRoot input);
+    }
 }

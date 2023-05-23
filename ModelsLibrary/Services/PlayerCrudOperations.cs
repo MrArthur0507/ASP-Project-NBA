@@ -26,7 +26,7 @@ namespace Services.Services
 
         public async Task<Player> GetById(int id)
         {
-            Player player = await _context.Players.FirstOrDefaultAsync(p => p.Id == id);
+            Player player = await _context.Players.Include(p => p.Team).FirstOrDefaultAsync(p => p.Id == id);
             return player;
         }
 

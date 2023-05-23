@@ -12,13 +12,13 @@ namespace ApiServices.Services
 {
     public class PlayerSeeder : IPlayerSeeder
     {
-        private readonly ApplicationDbContext _context;
+        
 
         public PlayerSeeder(ApplicationDbContext context)
         {
-            _context = context;
+            
         }
-        public void Seed(PlayerRoot root)
+        public void Seed(PlayerRoot root, ApplicationDbContext _context)
         {
             foreach (var player in root.Data)
             {
@@ -54,7 +54,7 @@ namespace ApiServices.Services
                     Console.WriteLine(ex.Message);
                 }
             }
-            _context.SaveChanges();
+            
         }
     }
 }

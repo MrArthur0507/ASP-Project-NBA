@@ -1,5 +1,4 @@
-﻿using NBAProject.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace ApiServices.Contracts
 {
-	public interface IFetchGame
-	{
-		public Task FetchGames(ApplicationDbContext context);
-	}
+    public interface IFetchStat
+    {
+        public Task FetchStats();
+    }
 }

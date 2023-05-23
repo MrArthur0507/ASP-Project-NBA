@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NBAProject.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace ApiServices.Contracts
 {
     public interface IFetchPlayer
     {
-        public  Task FetchPlayersWithDelay();
+        public  Task FetchPlayersWithDelay(ApplicationDbContext _context);
     }
 }

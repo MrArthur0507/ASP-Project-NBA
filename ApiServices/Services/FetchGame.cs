@@ -1,6 +1,7 @@
 ﻿using ApiServices.Contracts;
 using Models.ApiModels;
 using Models.DbModels;
+using NBAProject.Data;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace ApiServices.Services
 		{
 			_gameSeeder = gameSeeder;
 		}
-		public async Task FetchGames()
+		public async Task FetchGames(ApplicationDbContext context)
 		{
 			HttpClient client = new HttpClient();
 			string apiUrl = "https://www.balldontlie.io/api/v1/";

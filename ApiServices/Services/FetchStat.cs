@@ -1,7 +1,5 @@
 ﻿using ApiServices.Contracts;
 using Models.ApiModels;
-using Models.DbModels;
-using NBAProject.Data;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,30 +9,21 @@ using System.Threading.Tasks;
 
 namespace ApiServices.Services
 {
-    public class FetchPlayer : IFetchPlayer
+    public class FetchStat : IFetchStat
     {
-       
-        private readonly ITeamSeeder _teamSeeder;
-        private readonly IPlayerSeeder _playerSeeder;
-
-        public FetchPlayer(ITeamSeeder teamSeeder, IPlayerSeeder playerSeeder)
-        {
-            
-            _teamSeeder = teamSeeder;
-            _playerSeeder = playerSeeder;
+        private readonly IStatSeeder _statSeeder;
+        public FetchStat(IStatSeeder statSeeder) {
+            _statSeeder = statSeeder;
         }
-
-        public async Task FetchPlayersWithDelay(ApplicationDbContext _context)
+        public async Task FetchStats()
         {
-           
-
             HttpClient client = new HttpClient();
             string apiUrl = "https://www.balldontlie.io/api/v1/";
-            string playersEndpoint = "players";
+            string playersEndpoint = "stats";
             int delayMilliseconds = 1000;
             int page = 1;
             int maxPage = 1;
-           
+
             while (true)
             {
                 string requestUrl = $"{apiUrl}{playersEndpoint}?per_page=100&page={page}";
@@ -43,11 +32,8 @@ namespace ApiServices.Services
                 if (response.IsSuccessStatusCode)
                 {
                     string jsonResponse = await response.Content.ReadAsStringAsync();
-                    PlayerRoot root = JsonConvert.DeserializeObject<PlayerRoot>(jsonResponse);
-                    Console.WriteLine(jsonResponse);
-                    _teamSeeder.Seed(root, _context);
-                    _playerSeeder.Seed(root, _context);
-                    
+                    StatRoot root = JsonConvert.DeserializeObject<StatRoot>(jsonResponse);
+                    _statSeeder.Seed(root);
                     await Task.Delay(delayMilliseconds);
 
                     maxPage = root.Meta.total_pages;
@@ -63,10 +49,6 @@ namespace ApiServices.Services
                     break;
                 }
             }
-
-            _context.SaveChanges();
-            client.Dispose();
-
         }
     }
 }

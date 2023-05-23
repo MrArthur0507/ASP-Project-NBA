@@ -12,7 +12,7 @@ using NBAProject.Data;
 namespace ProjectData.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230519141401_Initial")]
+    [Migration("20230523142533_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -232,7 +232,7 @@ namespace ProjectData.Migrations
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime?>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("HomeTeamId")
@@ -336,6 +336,88 @@ namespace ProjectData.Migrations
                     b.HasIndex("TeamId");
 
                     b.ToTable("Players");
+                });
+
+            modelBuilder.Entity("Models.DbModels.Stat", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Assists")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Blocks")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("DefensiveRebounds")
+                        .HasColumnType("int");
+
+                    b.Property<double?>("FieldGoalPercentage")
+                        .HasColumnType("float");
+
+                    b.Property<int?>("FieldGoalsAttempted")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FieldGoalsMade")
+                        .HasColumnType("int");
+
+                    b.Property<double?>("FreeThrowPercentage")
+                        .HasColumnType("float");
+
+                    b.Property<int?>("FreeThrowsAttempted")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FreeThrowsMade")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GameId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Minutes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("OffensiveRebounds")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PersonalFouls")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PlayerId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Points")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Steals")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeamId")
+                        .HasColumnType("int");
+
+                    b.Property<double?>("ThreePointFieldGoalPercentage")
+                        .HasColumnType("float");
+
+                    b.Property<int?>("ThreePointFieldGoalsAttempted")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ThreePointFieldGoalsMade")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TotalRebounds")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Turnovers")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GameId");
+
+                    b.HasIndex("PlayerId");
+
+                    b.HasIndex("TeamId");
+
+                    b.ToTable("Stats");
                 });
 
             modelBuilder.Entity("Models.DbModels.Team", b =>
@@ -448,6 +530,33 @@ namespace ProjectData.Migrations
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Team");
+                });
+
+            modelBuilder.Entity("Models.DbModels.Stat", b =>
+                {
+                    b.HasOne("Models.DbModels.Game", "Game")
+                        .WithMany()
+                        .HasForeignKey("GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.DbModels.Player", "Player")
+                        .WithMany()
+                        .HasForeignKey("PlayerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Models.DbModels.Team", "Team")
+                        .WithMany()
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Game");
+
+                    b.Navigation("Player");
 
                     b.Navigation("Team");
                 });

@@ -22,7 +22,10 @@ builder.Services.AddScoped<ITeamSeeder, TeamSeeder>();
 builder.Services.AddScoped<IFetchPlayer, FetchPlayer>();
 builder.Services.AddScoped<IGameSeeder, GameSeeder>();
 builder.Services.AddScoped<IFetchGame, FetchGame>();
+builder.Services.AddScoped<IStatSeeder, StatSeeder>();
+builder.Services.AddScoped<IFetchStat, FetchStat>();
 builder.Services.AddScoped<IPlayerCrudOperations, PlayerCrudOperations>();
+builder.Services.AddScoped<IFetchData, FetchData>();
 builder.Services.AddControllersWithViews();
 
 

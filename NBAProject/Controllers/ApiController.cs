@@ -8,15 +8,13 @@ namespace NBAProject.Controllers
 {
     public class ApiController : Controller
     {
-        private readonly IFetchPlayer _fetchPlayer;
-        private readonly IFetchGame _fetchGame;
-        public ApiController(IFetchPlayer fetchPlayer, IFetchGame fetchGame) {
-            _fetchPlayer = fetchPlayer;
-            _fetchGame = fetchGame;
+        private readonly IFetchData _fetchData;
+        public ApiController(IFetchData fetchData) {
+            _fetchData = fetchData;
         }
         public async Task Index()
         {
-            await _fetchGame.FetchGames();
+            await _fetchData.FetchPlayersAndTeams();
         }
     }
 }
