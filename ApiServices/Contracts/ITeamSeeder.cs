@@ -1,4 +1,5 @@
 ﻿using Models.ApiModels;
+using Models.DbModels;
 using NBAProject.Data;
 using System;
 using System.Collections.Generic;

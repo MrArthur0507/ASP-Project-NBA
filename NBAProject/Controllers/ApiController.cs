@@ -12,9 +12,16 @@ namespace NBAProject.Controllers
         public ApiController(IFetchData fetchData) {
             _fetchData = fetchData;
         }
-        public async Task Index()
+        public IActionResult Index()
         {
-            await _fetchData.FetchPlayersAndTeams();
+            return View();
+        }
+
+        public async Task<IActionResult> GetPlayers()
+        {
+            await _fetchData.Fetch();
+
+            return View();
         }
     }
 }

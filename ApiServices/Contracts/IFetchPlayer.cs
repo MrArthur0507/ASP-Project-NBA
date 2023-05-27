@@ -9,6 +9,6 @@ namespace ApiServices.Contracts
 {
     public interface IFetchPlayer
     {
-        public  Task FetchPlayersWithDelay(ApplicationDbContext _context);
+        public  Task FetchPlayersWithDelay();
     }
 }

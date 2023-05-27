@@ -6,13 +6,8 @@ using System.Threading.Tasks;
 
 namespace ApiServices.Contracts
 {
-    public interface IFetchData
+    public interface IBasicFetcher
     {
-        
 
-        public Task Fetch();
-
-
-        
     }
 }

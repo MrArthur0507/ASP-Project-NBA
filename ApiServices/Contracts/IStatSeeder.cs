@@ -1,4 +1,6 @@
 ﻿using Models.ApiModels;
+using Models.DbModels;
+using NBAProject.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,6 @@ namespace ApiServices.Contracts
 {
     public interface IStatSeeder
     {
-        public void Seed(StatRoot input);
+        public List<Stat> Seed(StatRoot input, ApplicationDbContext context, List<Stat> stats);
     }
 }

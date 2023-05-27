@@ -9,6 +9,6 @@ namespace ApiServices.Contracts
 {
 	public interface IFetchGame
 	{
-		public Task FetchGames(ApplicationDbContext context);
+		public Task FetchGames();
 	}
 }

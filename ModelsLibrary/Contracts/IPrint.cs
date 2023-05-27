@@ -4,15 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApiServices.Contracts
+namespace Services.Contracts
 {
-    public interface IFetchData
+    public interface IPrint
     {
-        
-
-        public Task Fetch();
-
-
-        
+        public void PrintMsg(string input);
     }
 }

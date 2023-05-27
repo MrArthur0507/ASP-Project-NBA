@@ -1,4 +1,6 @@
 ﻿using Models.ApiModels;
+using Models.DbModels;
+using NBAProject.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,6 @@ namespace ApiServices.Contracts
 {
 	public interface IGameSeeder
 	{
-		public void Seed(GameRoot input);
+		public void Seed(GameRoot input, ApplicationDbContext _context, List<Game> games);
 	}
 }

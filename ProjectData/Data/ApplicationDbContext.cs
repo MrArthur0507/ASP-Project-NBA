@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Models.DbModels;
 using System.Reflection.Emit;
@@ -14,6 +15,7 @@ namespace NBAProject.Data
 
         public DbSet<Stat> Stats { get; set; }
 
+        public DbSet<ApiLogger> ApiLogger { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -48,6 +50,6 @@ namespace NBAProject.Data
             .WithMany()
             .OnDelete(DeleteBehavior.Restrict);
         }
-
+            
     }
 }

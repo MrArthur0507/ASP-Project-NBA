@@ -1,4 +1,5 @@
 ﻿using ApiServices.Contracts;
+using Models.DbModels;
 using NBAProject.Data;
 using System;
 using System.Collections.Generic;
@@ -24,24 +25,17 @@ namespace ApiServices.Services
             _context = context;
         }
 
-        public bool PlayersAndTeamsFetchCompleted { get; set; }
+        
 
-        public bool GamesFetchCompleted { get; set; }
-
-        public async Task FetchPlayersAndTeams()
+        public async Task Fetch()
         {
-            await _fetchPlayer.FetchPlayersWithDelay(_context);
-        }
-
-        public async Task FetchGames()
-        {
-            await _fetchGame.FetchGames(_context);
-        }
-
-        public async Task FetchStats()
-        {
+            await _fetchPlayer.FetchPlayersWithDelay();
+            await _fetchGame.FetchGames();
             await _fetchStat.FetchStats();
+              
         }
+
+       
 
     }
 }
