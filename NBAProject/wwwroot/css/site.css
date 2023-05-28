@@ -19,4 +19,8 @@ html {
 
 body {
   margin-bottom: 60px;
+  background-image: url(../img/bg1.jpg);
+  background-size: cover;
+  
 }
+

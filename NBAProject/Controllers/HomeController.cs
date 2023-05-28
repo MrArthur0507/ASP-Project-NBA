@@ -13,23 +13,24 @@ namespace NBAProject.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IPlayerCrudOperations _playerServices;
-        public HomeController(ILogger<HomeController> logger, IPlayerCrudOperations playerServices)
+        private readonly ApplicationDbContext _context;
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
         {
             _logger = logger;
-            _playerServices = playerServices;
+            _context = context;
         }
 
         public async Task<ViewResult> Index()
         {
-            
-            return View(await _playerServices.GetAll());
+            Game lastGame = _context.Games.FirstOrDefault();
+
+            return View(lastGame);
         }
 
         public async Task<ViewResult> Details(int id)
         {
 
-            return View(await _playerServices.GetById(id));
+            return View();
         }
         public IActionResult Privacy()
         {

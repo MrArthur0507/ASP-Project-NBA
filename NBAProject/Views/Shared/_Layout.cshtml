@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/NBAProject.styles.css" asp-append-version="true" />
 </head>
-<body>
+<body class="bg-dark">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-info border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-warning border-bottom box-shadow mb-3 fw-bold">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">NBAProject</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -29,6 +29,12 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Team" asp-action="Index">Teams</a>
                         </li>
                     </ul>
+                    <form class="form-inline my-2 my-lg-0" asp-action="Privacy">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search for player" aria-label="Search" asp-action="Privacy">
+                        
+                    </form>
+                    
+                    
                     <partial name="_LoginPartial" />
                 </div>
             </div>
@@ -40,13 +46,14 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted bg-warning text-black fw-bold">
         <div class="container">
             &copy; 2023 - NBAProject - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

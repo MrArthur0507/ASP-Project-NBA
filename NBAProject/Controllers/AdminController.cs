@@ -6,10 +6,10 @@ using Newtonsoft.Json;
 
 namespace NBAProject.Controllers
 {
-    public class ApiController : Controller
+    public class AdminController : Controller
     {
         private readonly IFetchData _fetchData;
-        public ApiController(IFetchData fetchData) {
+        public AdminController(IFetchData fetchData) {
             _fetchData = fetchData;
         }
         public IActionResult Index()

@@ -6,30 +6,34 @@
     ViewData["Title"] = "Teams";
 }
 
-<h1>Player List</h1>
+<p class="h1 text-warning text-center">Teams</p>
 
-<table class="table table-striped">
-    <thead class="thead-dark">
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Fullname</th>
-            <th scope="col">Abbreviation</th>
-            <th scope="col">City</th>
-            <th scope="col">Conference</th>
-            <th scope="col">Division</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var team in Model)
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
         {
-                <tr>
-                    <td>@team.Name</td>
-                    <td>@team.Fullname</td>
-                    <td>@team.Abbreviation</td>
-                    <td>@team.City</td>
-                    <td>@team.Conference</td>
-                    <td>@team.Division</td>
-                </tr>
+            <div class="col">
+                <div class="w-100">
+
+                    <table class="table" style="">
+                        <tr>
+                            <td>@item.Name</td>
+                        </tr>
+                        <tr>
+                            <td>@item.Name</td>
+                        </tr>
+                        <tr>
+                            <td>@item.Name</td>
+                        </tr>
+                        <tr>
+                            <td>@item.Name</td>
+                        </tr>
+                    </table>
+                    }
+
+                </div>
+            </div>
         }
-    </tbody>
-</table>
+        
+    </div>
+</div>

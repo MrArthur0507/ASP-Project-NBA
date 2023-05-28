@@ -1,50 +1,38 @@
-﻿@model List<Models.DbModels.Player>
-
-@{
-    ViewData["Title"] = "Home Page";
-}
-
-<div class="row">
-    @foreach (var item in Model)
-    {
-        <div class="col-md-4 col-xs-6 border-primary mb-3">
-            <div class="card mb-3" style="max-width: 540px;">
-                <div class="row g-0">
-                    <div class="col-md-12">
-                        <div class="card-header text-white bg-info">
-                            <p class="card-text">
-                                <h5 class="card-title">
-                                    @item.FirstName @item.LastName
-                                </h5>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <img src="https://www.logodesignlove.com/images/classic/nba-logo.jpg" width="100%" alt="@item.FirstName">
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card-body">
-                            <p class="card-text "><b>Position: </b>@item.Position</p>
-                            <p class="card-text"><b>HeightFeet: </b>@item.HeightFeet</p>
-                            <p class="card-text"><b>HeightInches: </b>@item.HeightInches</p>
-                            <p class="card-text"><b>WeightPounds: </b>@item.WeightPounds</p>
-
-
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="card-footer ">
-                            <p class="card-text">
-                                <a class="btn btn-outline-primary float-right" asp-action="Details" asp-route-id="@item.Id">
-                                    <i class="bi bi-eye-fill"></i> Show Details
-                                </a>
-                               
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+﻿@model Models.DbModels.Game
+<p class="h1 text-warning">Basketball Data</p>
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
         </div>
-    }
+        <div class="col-sm">
+            One of three columns
+        </div>
+        <div class="col-sm">
+            <table class="table bg-dark">
+                <thead>
+                    <tr class="bg-warning text-center">
+                        <th scope="col">Home</th>
+                        <th scope="col">Away</th>
+                    </tr>
+                </thead>
+                <tbody class="text-warning">
+                    <tr>
+                        <td>@Model.HomeTeamScore pts</td>
+                        <td>@Model.VisitorTeamScore pts</td>
+                    </tr>
+                    <tr>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                    </tr>
+                    <tr class="bg-warning fw-bold text-center">
+                        <td colspan="2" class="text-black">Search more Games</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+
+
 
