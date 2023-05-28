@@ -26,7 +26,7 @@ namespace ApiServices.Services
         {
             string apiUrl = "https://www.balldontlie.io/api/v1/";
             string playersEndpoint = "stats";
-            int delayMilliseconds = 1000;
+            int delayMilliseconds = 1100;
             int page = 1;
             int maxPage = 1;
             List<Stat> stats = new List<Stat>();
