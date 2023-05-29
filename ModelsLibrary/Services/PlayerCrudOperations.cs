@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using Models.DbModels;
+using Models.ViewModels;
 using NBAProject.Data;
 using Services.Contracts;
 using System;
@@ -14,20 +16,27 @@ namespace Services.Services
     public class PlayerCrudOperations : IPlayerCrudOperations
     {
         private readonly ApplicationDbContext _context;
-        public PlayerCrudOperations(ApplicationDbContext context) { 
+        private readonly IMapper _mapper;
+        public PlayerCrudOperations(ApplicationDbContext context, IMapper mapper) { 
             _context = context;
+            _mapper = mapper;
         }
-        public async Task<List<Player>> GetAll()
+        public List<PlayerViewModel> GetAll()
         {
-            List<Player> players = await _context.Players.ToListAsync();
+            
+            
+            List<Player> players = _context.Players.ToList();
 
-            return players;
+            List<PlayerViewModel> result = players.Select(player => _mapper.Map<PlayerViewModel>(player)).ToList();
+
+            return result.ToList();
         }
 
-        public async Task<Player> GetById(int id)
+        public PlayerDetailsViewModel GetById(int id)
         {
-            Player player = await _context.Players.Include(p => p.Team).FirstOrDefaultAsync(p => p.Id == id);
-            return player;
+            Player player =  _context.Players.Include(p => p.Team).FirstOrDefault(p => p.Id == id);
+            PlayerDetailsViewModel result = _mapper.Map<PlayerDetailsViewModel>(player);
+            return result;
         }
 
         public async Task Update(int id)

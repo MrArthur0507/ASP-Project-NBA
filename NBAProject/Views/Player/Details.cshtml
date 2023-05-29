@@ -1,0 +1,69 @@
+﻿@model Models.ViewModels.PlayerDetailsViewModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            
+        </div>
+        <div class="col-sm">
+            <table class="table bg-dark">
+                <thead>
+                    <tr class="bg-warning text-center">
+                        <th scope="col" colspan="2">Player Details</th>
+                    </tr>
+                </thead>
+                <tbody class="text-warning">
+                    <tr>
+                        <td>FirstName</td>
+                        <td>@Model.FirstName</td>
+                    </tr>
+                    <tr>
+                        <td>LastName</td>
+                        <td>@Model.LastName</td>
+                    </tr>
+                    <tr>
+                        <td>Position</td>
+                        <td>@Model.Position</td>
+                    </tr>
+                    <tr>
+                        <td>HeightFeet</td>
+                        <td>@Model.HeightFeet</td>
+                    </tr>
+                    <tr>
+                        <td>HeightInches</td>
+                        <td>@Model.HeightInches</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm">
+            <table class="table bg-dark">
+                <thead>
+                    <tr class="bg-warning text-center">
+                        <th scope="col" colspan="2">Player Team Details</th>
+                    </tr>
+                </thead>
+                <tbody class="text-warning">
+                    <tr>
+                        <td>Team fullname</td>
+                        <td>@Model.TeamFullname</td>
+                    </tr>
+                    <tr>
+                        <td>Team name</td>
+                        <td>@Model.TeamName</td>
+                    </tr>
+                    <tr>
+                        <td>Team abbreviation</td>
+                        <td>@Model.TeamAbbreviation</td>
+                    </tr>
+                    <tr class="bg-warning text-dark text-center fw-bold">
+                        <td colspan="2">See more details about Team</td>
+                    </tr>
+                    
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

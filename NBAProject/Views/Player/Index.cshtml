@@ -1,4 +1,4 @@
-﻿@model List<Models.DbModels.Player>
+﻿@model List<Models.ViewModels.PlayerViewModel>
 
 @{
     ViewData["Title"] = "Home Page";
@@ -11,9 +11,9 @@
             <div class="card mb-3" style="max-width: 540px;">
                 <div class="row g-0">
                     <div class="col-md-12">
-                        <div class="card-header text-white bg-info">
+                        <div class="card-header text-white bg-warning">
                             <p class="card-text">
-                                <h5 class="card-title">
+                                <h5 class="card-title text-center">
                                     @item.FirstName @item.LastName
                                 </h5>
                             </p>
@@ -28,14 +28,12 @@
                             <p class="card-text"><b>HeightFeet: </b>@item.HeightFeet</p>
                             <p class="card-text"><b>HeightInches: </b>@item.HeightInches</p>
                             <p class="card-text"><b>WeightPounds: </b>@item.WeightPounds</p>
-
-
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="card-footer ">
                             <p class="card-text">
-                                <a class="btn btn-outline-primary float-right" asp-action="Details" asp-route-id="@item.Id">
+                                <a class="btn btn-outline-warning" asp-action="Details" asp-route-id="@item.Id">
                                     <i class="bi bi-eye-fill"></i> Show Details
                                 </a>
                                

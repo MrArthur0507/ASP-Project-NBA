@@ -32,7 +32,7 @@ builder.Services.AddScoped<IStatSeeder, StatSeeder>();
 builder.Services.AddScoped<IFetchStat, FetchStat>();
 builder.Services.AddScoped<IPlayerCrudOperations, PlayerCrudOperations>();
 builder.Services.AddScoped<IFetchData, FetchData>();
-builder.Services.AddAutoMapper(typeof(Program), typeof(MappingProfile));
+builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 
 
 
