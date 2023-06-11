@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace Services.Contracts
 {
-    public interface ITeamCrudOperations
+    public interface IChartDataService
     {
-        public List<TeamViewModel> GetAll();
-
-        public TeamViewModel GetById(int teamId);
+        public Task<List<TeamSeasonAverageViewModel>> GetGames(int teamId);
     }
 }

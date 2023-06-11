@@ -8,6 +8,7 @@ namespace NBAProject.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
+        public DbSet<Comment> Comments { get; set; }
         public DbSet<Player> Players { get; set; }
         public DbSet<Team> Teams { get; set; }
 
@@ -32,7 +33,7 @@ namespace NBAProject.Data
             modelBuilder.Entity<Game>().Property(g => g.Id).ValueGeneratedNever();
             modelBuilder.Entity<Stat>().Property(m => m.Id).ValueGeneratedNever();
             modelBuilder.Entity<Meta>().Property(m => m.Id).ValueGeneratedNever();
-
+            modelBuilder.Entity<Comment>().Property(c => c.Id).ValueGeneratedNever();
 
 
             modelBuilder.Entity<Game>()

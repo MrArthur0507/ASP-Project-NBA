@@ -1,0 +1,103 @@
+﻿@model Models.ViewModels.TeamViewModel
+
+<div class="container align-content-center">
+    <div class="row">
+        <h2 class="h2 text-warning">Average Team score per season</h2>
+    </div>
+    <div class="row">
+        <div class="col-lg-10">
+            <canvas id="chart" class=""></canvas>
+        </div>
+        <div class="col-lg-2">
+            <table class="table bg-dark">
+                <thead>
+                    <tr class="bg-warning text-center">
+                        <th scope="col" colspan="2">Team Details</th>
+                    </tr>
+                </thead>
+                <tbody class="text-warning">
+                    <tr>
+                        <td>Name</td>
+                        <td>@Model.Name</td>
+                    </tr>
+                    <tr>
+                        <td>FullName</td>
+                        <td>@Model.Fullname</td>
+                    </tr>
+                    <tr>
+                        <td>Abbreviation</td>
+                        <td>@Model.Abbreviation</td>
+                    </tr>
+                    <tr>
+                        <td>City</td>
+                        <td>@Model.City</td>
+                    </tr>
+                    <tr>
+                        <td>Conference</td>
+                        <td>@Model.Conference</td>
+                    </tr>
+                    <tr>
+                        <td>Division</td>
+                        <td>@Model.Division</td>
+                    </tr>
+                    
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.1.1/chart.umd.js"></script>
+<script>
+    const teamId = @Model.Id;
+    $(document).ready(function () {
+        $.ajax({
+            url: '/Team/GetAverageScores?teamId=' + teamId,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                var Seasons = [];
+                var AverageScoreWhenHome = [];
+                var AverageScoreWhenAway = [];
+                for (let i = 0; i < data.length; i++) {
+                    Seasons.push(data[i].season);
+                    AverageScoreWhenHome.push(data[i].averageScoreWhenHome);
+                    AverageScoreWhenAway.push(data[i].averageScoreWhenAway);
+                }
+                createChart(Seasons, AverageScoreWhenAway, AverageScoreWhenHome);
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
+
+
+        function createChart(Seasons, AverageScoreWhenAway, AverageScoreWhenHome) {
+            document.getElementById("chart").classList.add("bg-dark");
+            new Chart("chart", {
+                type: "line",
+                data: {
+                    labels: Seasons,
+                    datasets: [{
+                        label: "Average when Home",
+                        data: AverageScoreWhenAway,
+                        borderColor: "red",
+                        fill: false
+                    }, {
+                        label: "Average when Away",
+                        data: AverageScoreWhenHome,
+                        borderColor: "green",
+                        fill: false
+                    }]
+                },
+                options: {
+                    legend: { display: false }
+                }
+            });
+
+
+        }
+    });
+</script>

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace Services.Services
 {
@@ -17,6 +18,7 @@ namespace Services.Services
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
+        const int pageSize = 25;
         public PlayerCrudOperations(ApplicationDbContext context, IMapper mapper) { 
             _context = context;
             _mapper = mapper;
@@ -28,14 +30,28 @@ namespace Services.Services
             List<Player> players = _context.Players.ToList();
 
             List<PlayerViewModel> result = players.Select(player => _mapper.Map<PlayerViewModel>(player)).ToList();
-
-            return result.ToList();
+                
+            return result;
         }
+		public IPagedList<PlayerViewModel> GetByPage(int page)
+		{
+            if (page == 0)
+            {
+                page = 1;
+            }
 
-        public PlayerDetailsViewModel GetById(int id)
+			List<Player> players = _context.Players.ToList();
+
+			List<PlayerViewModel> result = players.Select(player => _mapper.Map<PlayerViewModel>(player)).ToList();
+			IPagedList<PlayerViewModel> list = result.ToPagedList(page, pageSize);
+            return list;
+		}
+
+		public PlayerDetailsViewModel GetById(int id)
         {
-            Player player =  _context.Players.Include(p => p.Team).FirstOrDefault(p => p.Id == id);
+			Player player =  _context.Players.Include(p => p.Team).FirstOrDefault(p => p.Id == id);
             PlayerDetailsViewModel result = _mapper.Map<PlayerDetailsViewModel>(player);
+            
             return result;
         }
 

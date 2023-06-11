@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace Services.Contracts
 {
@@ -12,6 +13,7 @@ namespace Services.Contracts
     {
         public List<PlayerViewModel> GetAll();
 
+        public IPagedList<PlayerViewModel> GetByPage(int page);
         public PlayerDetailsViewModel GetById(int id);
 
         public Task Update(int id);

@@ -20,12 +20,14 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.6" />
     <PackageReference Include="Npm" Version="3.5.2" />
+    <PackageReference Include="X.PagedList.Mvc.Core" Version="8.4.7" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\ApiModule\Models\Models.csproj" />
     <ProjectReference Include="..\ApiServices\ApiServices.csproj" />
     <ProjectReference Include="..\ModelsLibrary\Services.csproj" />
+    <ProjectReference Include="..\NBAProject.Services\Services.csproj" />
     <ProjectReference Include="..\ProjectData\ProjectData.csproj" />
   </ItemGroup>
 

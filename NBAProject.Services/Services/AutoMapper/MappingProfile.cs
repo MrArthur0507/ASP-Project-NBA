@@ -19,7 +19,7 @@ namespace Models.AutoMapper
             .ForMember(dest => dest.TeamName, opt => opt.MapFrom(src => src.Team.Name))
             .ForMember(dest => dest.TeamFullname, opt => opt.MapFrom(src => src.Team.Fullname))
             .ForMember(dest => dest.TeamAbbreviation, opt => opt.MapFrom(src => src.Team.Abbreviation));
-
+            CreateMap<Team, TeamViewModel>();
         }
 
 
