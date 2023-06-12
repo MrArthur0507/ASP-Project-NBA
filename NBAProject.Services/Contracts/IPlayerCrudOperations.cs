@@ -11,12 +11,12 @@ namespace Services.Contracts
 {
     public interface IPlayerCrudOperations
     {
-        public List<PlayerViewModel> GetAll();
 
         public IPagedList<PlayerViewModel> GetByPage(int page);
-        public PlayerDetailsViewModel GetById(int id);
+        public Task<PlayerDetailsViewModel> GetById(int id);
 
-        public Task Update(int id);
+        public  Task<CreatePlayerViewModel> Create();
+        public Task Update(PlayerViewModel playerViewModel);
 
         public Task Delete(int id);
     }

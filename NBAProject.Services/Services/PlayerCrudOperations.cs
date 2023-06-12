@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using Models.DbModels;
@@ -23,16 +24,7 @@ namespace Services.Services
             _context = context;
             _mapper = mapper;
         }
-        public List<PlayerViewModel> GetAll()
-        {
-            
-            
-            List<Player> players = _context.Players.ToList();
-
-            List<PlayerViewModel> result = players.Select(player => _mapper.Map<PlayerViewModel>(player)).ToList();
-                
-            return result;
-        }
+        
 		public IPagedList<PlayerViewModel> GetByPage(int page)
 		{
             if (page == 0)
@@ -40,24 +32,55 @@ namespace Services.Services
                 page = 1;
             }
 
-			List<Player> players = _context.Players.ToList();
 
+            IEnumerable<Player> players = _context.Players.AsEnumerable();
 			List<PlayerViewModel> result = players.Select(player => _mapper.Map<PlayerViewModel>(player)).ToList();
 			IPagedList<PlayerViewModel> list = result.ToPagedList(page, pageSize);
             return list;
 		}
 
-		public PlayerDetailsViewModel GetById(int id)
+		public async Task<PlayerDetailsViewModel> GetById(int id)
         {
-			Player player =  _context.Players.Include(p => p.Team).FirstOrDefault(p => p.Id == id);
+            
+
+			var player = await _context.Players
+                .Include(player => player.Team)
+            .FirstOrDefaultAsync(player => player.Id == id);
             PlayerDetailsViewModel result = _mapper.Map<PlayerDetailsViewModel>(player);
             
             return result;
         }
 
-        public async Task Update(int id)
+        public async Task<CreatePlayerViewModel> Create()
         {
-            throw new NotImplementedException();
+            CreatePlayerViewModel createPlayerViewModel = new CreatePlayerViewModel();
+            ICollection<Team> teams =  await _context.Teams.ToListAsync();
+                foreach (var team in teams)
+            {
+                SelectListItem listItem = new SelectListItem()
+                {
+                    Text = team.Name,
+                    Value = team.Id.ToString(),
+                };
+
+                createPlayerViewModel.SelectedTeam.Add(listItem);
+            }
+
+            return createPlayerViewModel;
+        }
+
+
+        public async Task Update(PlayerViewModel playerViewModel)
+        {
+            var player = await _context.Players.FindAsync(playerViewModel.Id);
+            if (player == null)
+            {
+                throw new ArgumentException("Player not found.");
+            }
+
+            _mapper.Map(playerViewModel, player);
+            _context.Entry(player).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
 
         public async Task Delete(int id)

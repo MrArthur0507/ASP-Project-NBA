@@ -10,7 +10,7 @@ namespace Services.Contracts
 {
     public interface IGameCrudOperations
     {
-        public List<Game> GetGames(int homeId, int visitorId);
+        public List<GameViewModel> GetGames(int homeId, int visitorId);
 
         public SelectTeamViewModel GetSelect();
     }

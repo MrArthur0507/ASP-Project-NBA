@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Models.DbModels;
 using Models.ViewModels;
@@ -24,15 +25,28 @@ namespace NBAProject.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            PlayerDetailsViewModel player = _playerService.GetById(id);
+            PlayerDetailsViewModel player = await _playerService.GetById(id);
             return View(player);
+        }
+
+        public async Task<IActionResult> Create()
+        {
+            
+            return View(await _playerService.Create());
         }
 
         public async Task<IActionResult> GetStats(int id)
         {
             List<Stat> stats = _context.Stats.Where(stats => stats.PlayerId == id).ToList();
+            Dictionary<string, double?> statsAverage= new Dictionary<string, double?>();
 
-            return Json(stats);
+            statsAverage.Add("Points", stats.Average(stat => stat.Points));
+            statsAverage.Add("Blocks", stats.Average(stat => stat.Blocks));
+            statsAverage.Add("Assists", stats.Average(stat => stat.Assists));
+            statsAverage.Add("Rebounds", stats.Average(stat => stat.TotalRebounds));
+            statsAverage.Add("Steals", stats.Average(stat => stat.Steals));
+
+            return Json(statsAverage);
         }
     }
 }

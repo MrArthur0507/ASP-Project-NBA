@@ -1,4 +1,4 @@
-﻿using Models.DbModels;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Models.ViewModels
 {
-    public class PlayerViewModel
+    public class CreatePlayerViewModel
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
@@ -16,5 +16,8 @@ namespace Models.ViewModels
         public string LastName { get; set; }
         public string? Position { get; set; }
         public int? WeightPounds { get; set; }
+
+        public int TeamId { get; set; }
+        public List<SelectListItem> SelectedTeam { get; set; } = new List<SelectListItem>();
     }
 }

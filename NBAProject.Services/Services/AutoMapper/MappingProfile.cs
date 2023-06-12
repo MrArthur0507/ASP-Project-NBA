@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Routing.Constraints;
 using Models.ApiModels;
 using Models.DbModels;
 using Models.ViewModels;
@@ -20,6 +21,9 @@ namespace Models.AutoMapper
             .ForMember(dest => dest.TeamFullname, opt => opt.MapFrom(src => src.Team.Fullname))
             .ForMember(dest => dest.TeamAbbreviation, opt => opt.MapFrom(src => src.Team.Abbreviation));
             CreateMap<Team, TeamViewModel>();
+            CreateMap<Game, GameViewModel>()
+            .ForMember(dest => dest.Date, opt => opt.MapFrom(src => src.Date));
+            CreateMap<Player, CreatePlayerViewModel>();
         }
 
 

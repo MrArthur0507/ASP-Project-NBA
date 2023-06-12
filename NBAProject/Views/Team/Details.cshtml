@@ -1,52 +1,62 @@
 ﻿@model Models.ViewModels.TeamViewModel
 
-<div class="container align-content-center">
+<div class="container align-content-center justify-content-center">
+    <div class="row">
+        <h2 class="h2 text-warning">Details</h2>
+    </div>
+    <div class="col-lg-6 text-center">
+        <table class="table bg-dark">
+            <thead>
+                <tr class="bg-warning text-center">
+                    <th scope="col" colspan="2">Team Details</th>
+                </tr>
+            </thead>
+            <tbody class="text-warning">
+                <tr>
+                    <td>Name</td>
+                    <td>FullName</td>
+                    <td>Abbreviation</td>
+                    <td>City</td>
+                    <td>Conference</td>
+                    <td>Division</td>
+                </tr>
+                <tr>
+                    <td>@Model.Name</td>
+                    <td>@Model.Fullname</td>
+                    <td>@Model.Abbreviation</td>
+                    <td>@Model.City</td>
+                    <td>@Model.Conference</td>
+                    <td>@Model.Division</td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
     <div class="row">
         <h2 class="h2 text-warning">Average Team score per season</h2>
     </div>
     <div class="row">
-        <div class="col-lg-10">
+        <div class="col-lg-12 bg-dark vh-100 vw-100">
             <canvas id="chart" class=""></canvas>
         </div>
-        <div class="col-lg-2">
-            <table class="table bg-dark">
-                <thead>
-                    <tr class="bg-warning text-center">
-                        <th scope="col" colspan="2">Team Details</th>
-                    </tr>
-                </thead>
-                <tbody class="text-warning">
-                    <tr>
-                        <td>Name</td>
-                        <td>@Model.Name</td>
-                    </tr>
-                    <tr>
-                        <td>FullName</td>
-                        <td>@Model.Fullname</td>
-                    </tr>
-                    <tr>
-                        <td>Abbreviation</td>
-                        <td>@Model.Abbreviation</td>
-                    </tr>
-                    <tr>
-                        <td>City</td>
-                        <td>@Model.City</td>
-                    </tr>
-                    <tr>
-                        <td>Conference</td>
-                        <td>@Model.Conference</td>
-                    </tr>
-                    <tr>
-                        <td>Division</td>
-                        <td>@Model.Division</td>
-                    </tr>
-                    
+    </div>
+    <div class="row text-center">
+        <button id="btnLoadPlayers" class="btn btn-warning fw-bold">Load All-time players</button>
 
-                </tbody>
-            </table>
-        </div>
+        <table id="playersTable" class="table bg-dark text-warning">
+            <thead>
+                <tr>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>Position</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
     </div>
 </div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.1.1/chart.umd.js"></script>
 <script>
@@ -100,4 +110,36 @@
 
         }
     });
+
+    $(document).ready(function () {
+        $('#btnLoadPlayers').click(function () {
+            $.ajax({
+                url: '/Team/GetPlayerInTeam?teamId=' + teamId,
+                type: 'GET',
+                success: function (data) {
+                    console.log(data);
+                    displayPlayers(data);
+                    
+                },
+                error: function (error) {
+                    console.error(error);
+                }
+            });
+        });
+    });
+
+    function displayPlayers(players) {
+        var tableBody = $('#playersTable tbody');
+        tableBody.empty();
+
+        for (var i = 0; i < players.length; i++) {
+            var player = players[i];
+
+            var row = $('<tr>');
+            row.append($('<td>').text(player.firstName));
+            row.append($('<td>').text(player.lastName));
+            row.append($('<td>').text(player.position));
+            tableBody.append(row);
+        }
+    }
 </script>

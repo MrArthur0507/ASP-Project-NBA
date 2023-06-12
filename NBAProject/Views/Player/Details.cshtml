@@ -2,10 +2,11 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-sm">
-            
+        <div class="col-sm bg-dark vw-100 vh-100">
+            <canvas id="marksChart" class="bg-dark"></canvas>
         </div>
         <div class="col-sm">
+            <h2 class="text-center pb-5 pt-5 text-warning">@Model.FirstName @Model.LastName Details</h2>
             <table class="table bg-dark">
                 <thead>
                     <tr class="bg-warning text-center">
@@ -36,8 +37,6 @@
 
                 </tbody>
             </table>
-        </div>
-        <div class="col-sm">
             <table class="table bg-dark">
                 <thead>
                     <tr class="bg-warning text-center">
@@ -60,10 +59,52 @@
                     <tr class="bg-warning text-dark text-center fw-bold">
                         <td colspan="2">See more details about Team</td>
                     </tr>
-                    
+
 
                 </tbody>
             </table>
         </div>
+        
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.1.1/chart.umd.js"></script>
+<script>
+    const teamId = @Model.Id;
+    $(document).ready(function () {
+        $.ajax({
+            url: '/Player/GetStats?id=' + teamId,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                
+                createChart(data);
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
+
+
+        function createChart(data) {
+            var marksCanvas = document.getElementById("marksChart");
+            console.log(data)
+            var marksData = {
+                labels: ["Points", "Blocks", "Assists", "Rebounds", "Steals"],
+                datasets: [{
+                    label: "@Model.FirstName @Model.LastName Average stats per game",
+                    backgroundColor: "rgba(228,161,27,0.5)",
+                    data: Object.values(data),
+                }]
+            };
+
+            var radarChart = new Chart(marksCanvas, {
+                type: 'radar',
+                data: marksData
+            });
+
+
+        }
+    });
+</script>

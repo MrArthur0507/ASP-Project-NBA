@@ -1,0 +1,60 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model List<Models.DbModels.Stat>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+           <div class="container">
+               <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-6 col border-primary mb-3">
+                        <div class="card mb-3 bg-dark text-warning" style="max-width: 540px;">
+                            <div class="row g-0">
+                                <div class="col-md-12">
+                                    <div class="card-header text-white bg-warning">
+                                        <p class="card-text">
+                                            <h5 class="card-title text-center">
+                                                @item.Player.FirstName @item.Player.LastName
+                                            </h5>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="card-body">
+                                        <p class="card-text "><b>Position: </b>@item.Player.Position</p>
+                                        <p class="card-text"><b>HeightFeet: </b>@item.Player.HeightFeet</p>
+                                        <p class="card-text"><b>HeightInches: </b>@item.Player.HeightInches</p>
+                                        <p class="card-text"><b>WeightPounds: </b>@item.Player.WeightPounds</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="card-footer text-center">
+                                        <p class="card-text">
+                                            <a class="btn btn-outline-warning" asp-action="Details" asp-route-id="@item.Id">
+                                                <i class="bi bi-eye-fill"></i> Show Stats
+                                            </a>
+
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                </div>
+           </div>
+        </div>
+        <div class="col-sm">
+            
+            
+            
+        </div>
+
+    </div>
+</div>
+

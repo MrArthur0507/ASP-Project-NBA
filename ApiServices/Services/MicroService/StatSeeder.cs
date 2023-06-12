@@ -28,7 +28,7 @@ namespace ApiServices.Services.MicroService
                     if (!idExists && !existsInList)
                     {
                         Stat convertedStat = Convert(stat);
-                        if (context.Games.Any(g => g.Id == convertedStat.GameId))
+                        if (context.Games.Any(g => g.Id == convertedStat.GameId && context.Players.Any(p => p.Id == stat.player.id)))
                         {
                             stats.Add(convertedStat);
 

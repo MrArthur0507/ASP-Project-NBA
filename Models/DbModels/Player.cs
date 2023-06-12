@@ -18,5 +18,6 @@ namespace Models.DbModels
         public int TeamId { get; set; }
         public Team Team { get; set; }
         public int? WeightPounds { get; set; }
+
     }
 }

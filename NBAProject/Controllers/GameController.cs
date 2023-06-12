@@ -28,11 +28,20 @@ namespace NBAProject.Controllers
         [HttpPost]
         public IActionResult Search(SelectTeamViewModel select)
         {
-            List<Game> games = _gameCrud.GetGames(select.HomeTeamId, select.VisitorTeamId);
+            List<GameViewModel> games = _gameCrud.GetGames(select.HomeTeamId, select.VisitorTeamId);
 
             return View(games);
         }
 
+        public async Task<IActionResult> Details(int id)
+        {
+            IQueryable <Stat>  stats = _context.Stats.Where(x => x.GameId == id).Include(stat => stat.Player);
+
+            
+
+            List<Stat> statsResult = await stats.ToListAsync();
+            return View(statsResult);
+        }
 
     }
 }

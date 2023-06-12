@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ApiModule\Models\Models.csproj" />
     <ProjectReference Include="..\ModelsLibrary\Services.csproj" />
     <ProjectReference Include="..\NBAProject.Services\Services.csproj" />
     <ProjectReference Include="..\ProjectData\ProjectData.csproj" />

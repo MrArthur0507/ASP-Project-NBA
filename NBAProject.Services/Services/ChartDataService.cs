@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Models.DbModels;
 using Models.ViewModels;
 using NBAProject.Data;
@@ -14,18 +15,21 @@ namespace Services.Services
 	public class ChartDataService : IChartDataService
 	{
 		private readonly ApplicationDbContext _context;
-		public ChartDataService(ApplicationDbContext context)
+
+        private readonly IMapper _mapper;
+		public ChartDataService(ApplicationDbContext context, IMapper mapper)
 		{
 			_context= context;
-			
+            _mapper = mapper;
 		}
 
         public async Task<List<TeamSeasonAverageViewModel>> GetGames(int teamId)
         {
             IQueryable<Game> games = _context.Games.AsQueryable();
 
-            var seasonAverages = games
-           .Where(g => g.HomeTeamId == teamId || g.VisitorTeamId == teamId)
+            var result = games
+           .Where(g => g.HomeTeamId == teamId || g.VisitorTeamId == teamId).ToList();
+            var grouped = result
            .GroupBy(g => g.Season)
            .Select(g => new TeamSeasonAverageViewModel
            {
@@ -34,9 +38,20 @@ namespace Services.Services
                AverageScoreWhenHome = (g.Where(g => g.HomeTeamId == teamId)).Average(g => g.HomeTeamScore),
            });
 
-            var sortedAverages = seasonAverages.OrderBy(sorted => sorted.Season);
+            var sortedAverages = grouped.OrderBy(sorted => sorted.Season).ToList();
 
             return sortedAverages.ToList();
+        }
+
+
+        public List<PlayerViewModel> GetPlayers(int teamId)
+        {
+            List<PlayerViewModel> players = _context.Players.Where(player => player.TeamId == teamId)
+            .Select(player => _mapper.Map<PlayerViewModel>(player)).ToList();
+
+
+            return players;
+            
         }
     }
 }

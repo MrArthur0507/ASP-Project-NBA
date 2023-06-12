@@ -36,5 +36,12 @@ namespace NBAProject.Controllers
             List<TeamSeasonAverageViewModel> average = await _chartService.GetGames(teamId);
             return Json(average);
         }
+
+
+        public async Task<IActionResult> GetPlayerInTeam(int teamId)
+        {
+            List<PlayerViewModel> players = _chartService.GetPlayers(teamId);
+            return Json(players);
+        }
     }
 }

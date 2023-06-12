@@ -1,12 +1,9 @@
 ﻿@model Models.DbModels.Game
 <p class="h1 text-warning">Basketball Data</p>
+
 <div class="container">
     <div class="row align-items-center">
-        <div class="col-md-8">
-            <canvas id="myChart" style="max-width: 100%" class="bg-dark"></canvas>
-        </div>
-        
-        <div class="col-md-4">
+        <div class="col-sm-6">
             <table class="table bg-dark">
                 <thead>
                     <tr class="bg-warning text-center">
@@ -28,8 +25,11 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
     </div>
+            <div class="col-sm-12 bg-dark vh-100 vw-100 m-0">
+                <h2 class="text-warning text-center">Average Score Per Season</h2>
+                <canvas id="myChart" style="max-width: 100%" class=""></canvas>
+            </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.1.1/chart.umd.js"></script>
  <script>
@@ -41,8 +41,8 @@
         data: {
             labels: xValues,
             datasets: [{
-                backgroundColor: "rgba(0,0,255,1.0)",
-                borderColor: "rgba(228,161,27,0.1)",
+                backgroundColor: "rgba(228, 161, 27, 1)",
+                borderColor: "rgba(228,161,27,1)",
                 data: yValues
             }]
         },

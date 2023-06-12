@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Models.DbModels;
 using Models.ViewModels;
 using NBAProject.Data;
@@ -14,9 +15,12 @@ namespace Services.Services
     public class GameCrudOperations : IGameCrudOperations
     {
         private readonly ApplicationDbContext _context;
-        public GameCrudOperations(ApplicationDbContext context)
+
+        private readonly IMapper _mapper;
+        public GameCrudOperations(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
         
         public SelectTeamViewModel GetSelect()
@@ -30,15 +34,18 @@ namespace Services.Services
                     Text = team.Name,
                     Value = team.Id.ToString(),
                 };
+                
                 model.SelectedTeam.Add(listItem);
             }
             Console.WriteLine(model.SelectedTeam.Count);
             return model;
         }
-        public List<Game> GetGames(int visitorTeamId, int homeTeamId)
+        public List<GameViewModel> GetGames(int visitorTeamId, int homeTeamId)
         {
-            List<Game> games = _context.Games.Where(g => g.VisitorTeamId == visitorTeamId && g.HomeTeamId == homeTeamId).ToList();
-            return games;
+            List<Game> result = _context.Games.Where(g => g.VisitorTeamId == visitorTeamId && g.HomeTeamId == homeTeamId).ToList();
+            List<GameViewModel> games = result.Select(game => _mapper.Map<GameViewModel>(game)).ToList();
+            List<GameViewModel> orderedGames = games.OrderByDescending(g => g.Season).ToList();
+            return orderedGames;
             
         }
 

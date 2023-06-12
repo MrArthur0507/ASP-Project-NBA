@@ -1,27 +1,42 @@
-﻿@model List<Models.DbModels.Game>
+﻿@model List<Models.ViewModels.GameViewModel>
 
 <div class="row">
     @foreach (var game in Model)
     {
         <div class="col-md-4 col-xs-6 border-primary mb-3">
-            <div class="card mb-3" style="max-width: 540px;">
+            <div class="card mb-3 bg-dark text-center" style="max-width: 540px;">
                 <div class="row g-0">
                     <div class="col-md-12">
                         <div class="card-header text-white bg-warning">
                             <p class="card-text">
                                 <h5 class="card-title text-center">
-                                     @game.Date
+                                     Season - @game.Season
                                 </h5>
                             </p>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        
-                    </div>
+                        <table class="table bg-dark">
+                            <thead>
+                                <tr class="bg-warning text-center">
+                                    <th scope="col">Home</th>
+                                    <th scope="col">Away</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-warning">
+                                <tr class="text-center">
+                                    <td>@game.HomeTeamScore pts</td>
+                                    <td>@game.VisitorTeamScore pts</td>
+                                </tr>
+                                <tr class="text-center">
+                                    <td colspan="2"> Date: @game.Date.ToShortDateString()</td>
+                                </tr>
+                               
+                            </tbody>
+                        </table>
                     <div class="col-md-12">
                         <div class="card-footer ">
                             <p class="card-text">
-                                <a class="btn btn-outline-warning" asp-action="Details" asp-route-id="@game.Id">
+                                <a class="btn btn-outline-warning" asp-controller="Game" asp-action="Details" asp-route-id="@game.Id">
                                     <i class="bi bi-eye-fill"></i> Show Details
                                 </a>
 

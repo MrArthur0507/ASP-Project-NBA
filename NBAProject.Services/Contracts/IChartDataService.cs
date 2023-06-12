@@ -10,5 +10,7 @@ namespace Services.Contracts
     public interface IChartDataService
     {
         public Task<List<TeamSeasonAverageViewModel>> GetGames(int teamId);
+
+        public List<PlayerViewModel> GetPlayers(int teamId);
     }
 }
