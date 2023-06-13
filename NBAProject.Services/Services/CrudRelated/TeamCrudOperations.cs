@@ -13,7 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.Services
+namespace Services.Services.CrudRelated
 {
     public class TeamCrudOperations : ITeamCrudOperations
     {
@@ -32,7 +32,7 @@ namespace Services.Services
             List<TeamViewModel> result = teams.Select(team => _mapper.Map<TeamViewModel>(team)).ToList();
 
             return result;
-            
+
         }
 
         public TeamViewModel GetById(int teamId)
@@ -45,6 +45,6 @@ namespace Services.Services
 
         }
 
-        
+
     }
 }

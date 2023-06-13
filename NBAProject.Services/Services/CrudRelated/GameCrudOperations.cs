@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.Services
+namespace Services.Services.CrudRelated
 {
     public class GameCrudOperations : IGameCrudOperations
     {
@@ -22,7 +22,7 @@ namespace Services.Services
             _context = context;
             _mapper = mapper;
         }
-        
+
         public SelectTeamViewModel GetSelect()
         {
             SelectTeamViewModel model = new SelectTeamViewModel();
@@ -34,7 +34,7 @@ namespace Services.Services
                     Text = team.Name,
                     Value = team.Id.ToString(),
                 };
-                
+
                 model.SelectedTeam.Add(listItem);
             }
             Console.WriteLine(model.SelectedTeam.Count);
@@ -46,7 +46,7 @@ namespace Services.Services
             List<GameViewModel> games = result.Select(game => _mapper.Map<GameViewModel>(game)).ToList();
             List<GameViewModel> orderedGames = games.OrderByDescending(g => g.Season).ToList();
             return orderedGames;
-            
+
         }
 
     }

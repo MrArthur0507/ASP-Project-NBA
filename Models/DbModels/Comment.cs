@@ -20,5 +20,9 @@ namespace Models.DbModels
 
         public DateTime Date { get; set; }
 
+        public int GameId { get; set; }
+
+        public Game Game { get; set; }
+
     }
 }

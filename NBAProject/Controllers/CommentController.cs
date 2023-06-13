@@ -4,48 +4,44 @@ using Microsoft.AspNetCore.Mvc;
 using Models.DbModels;
 using Models.ViewModels;
 using NBAProject.Data;
+using Services.Contracts;
 using System.Security.Claims;
 
 namespace NBAProject.Controllers
 {
     public class CommentController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly ApplicationDbContext _context;
+        private readonly ICommentOperations _commentOperations;
 
-        public CommentController(UserManager<IdentityUser> userManager, ApplicationDbContext context)
+        public CommentController(ICommentOperations commentOperations)
         {
-            _userManager = userManager;
-            _context = context;
+            _commentOperations = commentOperations;
         }
 
-        public  IActionResult Create()
+        public IActionResult Create()
         {
-            
+
             return View(new CreateCommentViewModel());
         }
         [HttpPost]
         [Authorize]
-        public IActionResult CreateComment(int id, CreateCommentViewModel commentViewModel)
+        public IActionResult CreateComment(string comment, int gameId)
         {
             if (ModelState.IsValid)
             {
-                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                _commentOperations.CreateComment(comment, gameId);
 
-                var comment = new Comment
-                {
-                    Content = commentViewModel.Content,
-                    Date = DateTime.Now,
-                    UserId = userId,
-                    
-                };
+                
 
-                _context.Comments.Add(comment);
-                _context.SaveChanges();
-
-                return RedirectToAction("Details", "Game"); 
+                return RedirectToAction("Details", "Game");
             }
             return View();
         }
+
+        //public async IActionResult GetByGame(int gameId)
+        //{
+            
+        //    return View(await _commentOperations.GetCommentsByGameId(gameId));
+        //}
     }
 }

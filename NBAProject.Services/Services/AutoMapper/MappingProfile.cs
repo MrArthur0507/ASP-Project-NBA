@@ -24,6 +24,7 @@ namespace Models.AutoMapper
             CreateMap<Game, GameViewModel>()
             .ForMember(dest => dest.Date, opt => opt.MapFrom(src => src.Date));
             CreateMap<Player, CreatePlayerViewModel>();
+            CreateMap<Stat, StatViewModel>();
         }
 
 

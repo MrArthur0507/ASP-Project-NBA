@@ -13,11 +13,11 @@ namespace NBAProject.Controllers
 
         private readonly IGameCrudOperations _gameCrud;
 
-        private readonly ApplicationDbContext _context;
-        public GameController(IGameCrudOperations gameCrud, ApplicationDbContext context)
+        private readonly IStatOperations _statOperations;
+        public GameController(IGameCrudOperations gameCrud, IStatOperations statOperations)
         {
             _gameCrud = gameCrud;
-            _context = context;
+            _statOperations = statOperations;
         }
         public IActionResult Index()
         {
@@ -35,12 +35,8 @@ namespace NBAProject.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            IQueryable <Stat>  stats = _context.Stats.Where(x => x.GameId == id).Include(stat => stat.Player);
-
             
-
-            List<Stat> statsResult = await stats.ToListAsync();
-            return View(statsResult);
+            return View(await _statOperations.GetStatsByGameId(id));
         }
 
     }

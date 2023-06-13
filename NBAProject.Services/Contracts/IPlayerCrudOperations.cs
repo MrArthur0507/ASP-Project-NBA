@@ -17,7 +17,6 @@ namespace Services.Contracts
 
         public  Task<CreatePlayerViewModel> Create();
         public Task Update(PlayerViewModel playerViewModel);
-
-        public Task Delete(int id);
+        public IEnumerable<PlayerViewModel> SearchPlayers(string searchTerm);
     }
 }

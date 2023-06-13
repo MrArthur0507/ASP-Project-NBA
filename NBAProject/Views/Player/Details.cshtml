@@ -73,7 +73,7 @@
     const teamId = @Model.Id;
     $(document).ready(function () {
         $.ajax({
-            url: '/Player/GetStats?id=' + teamId,
+            url: '/Stat/GetBasicStatsByPlayerId?id=' + teamId,
             type: 'GET',
             dataType: 'json',
             success: function (data) {

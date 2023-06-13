@@ -3,58 +3,103 @@
 *@
 @{
 }
-@model List<Models.DbModels.Stat>
+@model Models.ViewModels.GameStatViewModel
 
 <div class="container">
+    <div class="row mb-4">
+        <h2 class="h2 text-warning fw-bold text-center pb-3">Total stats for the game</h2>
+        <canvas id="marksChart" class="bg-dark"></canvas>
+    </div>
     <div class="row">
-        <div class="col-md-6">
-           <div class="container">
-               <div class="row">
-                @foreach (var item in Model)
-                {
-                    <div class="col-md-6 col border-primary mb-3">
-                        <div class="card mb-3 bg-dark text-warning" style="max-width: 540px;">
-                            <div class="row g-0">
-                                <div class="col-md-12">
-                                    <div class="card-header text-white bg-warning">
-                                        <p class="card-text">
-                                            <h5 class="card-title text-center">
-                                                @item.Player.FirstName @item.Player.LastName
-                                            </h5>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="card-body">
-                                        <p class="card-text "><b>Position: </b>@item.Player.Position</p>
-                                        <p class="card-text"><b>HeightFeet: </b>@item.Player.HeightFeet</p>
-                                        <p class="card-text"><b>HeightInches: </b>@item.Player.HeightInches</p>
-                                        <p class="card-text"><b>WeightPounds: </b>@item.Player.WeightPounds</p>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="card-footer text-center">
-                                        <p class="card-text">
-                                            <a class="btn btn-outline-warning" asp-action="Details" asp-route-id="@item.Id">
-                                                <i class="bi bi-eye-fill"></i> Show Stats
-                                            </a>
-
-                                        </p>
-                                    </div>
-                                </div>
+        <h2 class="h2 fw-bold text-warning text-center pb-4">Players who played in that game</h2>
+        @foreach (var item in Model.Stats)
+        {
+            <div class="col-md-4 col-xs-6 border-primary mb-3">
+                <div class="card mb-3 bg-dark text-warning" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-12">
+                            <div class="card-header text-white bg-warning">
+                                <p class="card-text">
+                                    <h5 class="card-title text-center">
+                                        @item.FirstName @item.LastName
+                                    </h5>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <img src="https://www.logodesignlove.com/images/classic/nba-logo.jpg" width="100%" alt="@item.FirstName">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <p class="card-text "><b>Position: </b>@item.Position</p>
+                                <p class="card-text"><b>HeightFeet: </b>@item.HeightFeet</p>
+                                <p class="card-text"><b>HeightInches: </b>@item.HeightInches</p>
+                                <p class="card-text"><b>WeightPounds: </b>@item.WeightPounds</p>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card-footer ">
+                                <p class="card-text">
+                                    <a class="btn btn-outline-warning" asp-action="Details" asp-route-id="@item.Id">
+                                        <i class="bi bi-eye-fill"></i> Show Details
+                                    </a>
+                                    <a class="btn btn-outline-warning" asp-action="Details" asp-route-id="@item.Id">
+                                        <i class="bi bi-eye-fill"></i> Show Player Game Stats
+                                    </a>
+                                </p>
                             </div>
                         </div>
                     </div>
-                }
                 </div>
-           </div>
-        </div>
-        <div class="col-sm">
-            
-            
-            
-        </div>
-
+            </div>
+        }
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.1.1/chart.umd.js"></script>
+<script>
+    const gameId = @Model.GameId
+    $(document).ready(function () {
+        $.ajax({
+            url: '/Stat/GetTotalForGame?id=' + gameId,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+
+                createChart(data);
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
+
+
+        function createChart(data) {
+            var marksCanvas = document.getElementById("marksChart");
+            console.log(data);
+            var marksData = {
+                labels: ["Points", "Blocks", "Assists", "Rebounds", "Steals"],
+                datasets: [{
+                    label: "Total",
+                    backgroundColor: [
+                      'rgba(255, 99, 132, 0.5)',
+                      'rgba(255, 159, 64, 0.5)',
+                      'rgba(255, 205, 86, 0.5)',
+                      'rgba(75, 192, 192, 0.5)',
+                      'rgba(54, 162, 235, 0.5)',
+                      
+                    ],
+                    data: data,
+                }]
+            };
+
+            var barChart = new Chart(marksCanvas, {
+                type: 'bar',
+                data: marksData
+            });
+
+        }
+    });
+</script>

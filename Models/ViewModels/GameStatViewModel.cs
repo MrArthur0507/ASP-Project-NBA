@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Models.ViewModels
 {
-    public class CreateCommentViewModel
+    public class GameStatViewModel
     {
-        public string Content { get; set; }
-
         public int GameId { get; set; }
+
+        public List<PlayerViewModel> Stats { get; set; } = new List<PlayerViewModel>();
     }
 }

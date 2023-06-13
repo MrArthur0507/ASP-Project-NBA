@@ -34,19 +34,12 @@ namespace NBAProject.Controllers
             
             return View(await _playerService.Create());
         }
-
-        public async Task<IActionResult> GetStats(int id)
+        
+        public IActionResult Search(string param)
         {
-            List<Stat> stats = _context.Stats.Where(stats => stats.PlayerId == id).ToList();
-            Dictionary<string, double?> statsAverage= new Dictionary<string, double?>();
-
-            statsAverage.Add("Points", stats.Average(stat => stat.Points));
-            statsAverage.Add("Blocks", stats.Average(stat => stat.Blocks));
-            statsAverage.Add("Assists", stats.Average(stat => stat.Assists));
-            statsAverage.Add("Rebounds", stats.Average(stat => stat.TotalRebounds));
-            statsAverage.Add("Steals", stats.Average(stat => stat.Steals));
-
-            return Json(statsAverage);
+            
+            return View(_playerService.SearchPlayers(param));
         }
+        
     }
 }

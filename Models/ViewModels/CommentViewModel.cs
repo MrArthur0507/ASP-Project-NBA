@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Models.ViewModels
 {
-    public class CreateCommentViewModel
+    public class CommentViewModel
     {
         public string Content { get; set; }
 
-        public int GameId { get; set; }
+        public string UserName { get; set; }
+        public DateTime Date { get; set; }
     }
 }

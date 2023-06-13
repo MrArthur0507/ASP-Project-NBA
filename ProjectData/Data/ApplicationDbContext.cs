@@ -2,11 +2,12 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Models.DbModels;
+using ProjectData.Data;
 using System.Reflection.Emit;
 
 namespace NBAProject.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Player> Players { get; set; }

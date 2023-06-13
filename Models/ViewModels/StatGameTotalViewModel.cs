@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Models.ViewModels
 {
-    public class CreateCommentViewModel
+    public class StatGameTotalViewModel
     {
-        public string Content { get; set; }
-
-        public int GameId { get; set; }
+        public Dictionary<string, int?> GameTotal = new Dictionary<string, int?>();
     }
 }

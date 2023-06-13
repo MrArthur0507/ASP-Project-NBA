@@ -13,20 +13,21 @@ using System.Text;
 using System.Threading.Tasks;
 using X.PagedList;
 
-namespace Services.Services
+namespace Services.Services.CrudRelated
 {
     public class PlayerCrudOperations : IPlayerCrudOperations
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
         const int pageSize = 25;
-        public PlayerCrudOperations(ApplicationDbContext context, IMapper mapper) { 
+        public PlayerCrudOperations(ApplicationDbContext context, IMapper mapper)
+        {
             _context = context;
             _mapper = mapper;
         }
-        
-		public IPagedList<PlayerViewModel> GetByPage(int page)
-		{
+
+        public IPagedList<PlayerViewModel> GetByPage(int page)
+        {
             if (page == 0)
             {
                 page = 1;
@@ -34,28 +35,28 @@ namespace Services.Services
 
 
             IEnumerable<Player> players = _context.Players.AsEnumerable();
-			List<PlayerViewModel> result = players.Select(player => _mapper.Map<PlayerViewModel>(player)).ToList();
-			IPagedList<PlayerViewModel> list = result.ToPagedList(page, pageSize);
+            List<PlayerViewModel> result = players.Select(player => _mapper.Map<PlayerViewModel>(player)).ToList();
+            IPagedList<PlayerViewModel> list = result.ToPagedList(page, pageSize);
             return list;
-		}
+        }
 
-		public async Task<PlayerDetailsViewModel> GetById(int id)
+        public async Task<PlayerDetailsViewModel> GetById(int id)
         {
-            
 
-			var player = await _context.Players
+
+            var player = await _context.Players
                 .Include(player => player.Team)
             .FirstOrDefaultAsync(player => player.Id == id);
             PlayerDetailsViewModel result = _mapper.Map<PlayerDetailsViewModel>(player);
-            
+
             return result;
         }
 
         public async Task<CreatePlayerViewModel> Create()
         {
             CreatePlayerViewModel createPlayerViewModel = new CreatePlayerViewModel();
-            ICollection<Team> teams =  await _context.Teams.ToListAsync();
-                foreach (var team in teams)
+            ICollection<Team> teams = await _context.Teams.ToListAsync();
+            foreach (var team in teams)
             {
                 SelectListItem listItem = new SelectListItem()
                 {
@@ -83,9 +84,25 @@ namespace Services.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task Delete(int id)
+
+        public IEnumerable<PlayerViewModel> SearchPlayers(string searchTerm)
         {
-            throw new NotImplementedException();
+            
+            var players = _context.Players
+                .Where(player => player.FirstName.Contains(searchTerm) || player.LastName.Contains(searchTerm) || (player.FirstName + player.LastName).Contains(searchTerm))
+                .Select(player => new PlayerViewModel
+                {
+                    Id = player.Id,
+                    FirstName = player.FirstName,
+                    HeightFeet = player.HeightFeet,
+                    HeightInches = player.HeightInches,
+                    LastName = player.LastName,
+                    Position = player.Position,
+                    WeightPounds = player.WeightPounds
+                })
+                .ToList();
+
+            return players;
         }
     }
 }
