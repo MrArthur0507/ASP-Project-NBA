@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Routing.Constraints;
 using Models.ApiModels;
 using Models.DbModels;
 using Models.ViewModels;
+using ProjectData.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,8 @@ namespace Models.AutoMapper
             .ForMember(dest => dest.Date, opt => opt.MapFrom(src => src.Date));
             CreateMap<Player, CreatePlayerViewModel>();
             CreateMap<Stat, StatViewModel>();
+            CreateMap<ApplicationUser, UserViewModel>();
+            CreateMap<Comment, CommentViewModel>().ReverseMap();
         }
 
 

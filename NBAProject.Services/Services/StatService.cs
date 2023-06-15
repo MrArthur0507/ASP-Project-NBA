@@ -1,44 +1,43 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using Models.DbModels;
 using Models.ViewModels;
-using NBAProject.Data;
-using Services.Contracts;
+using RepositoryLayer.Interfaces;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.Services.CrudRelated
+namespace Services.Services
 {
-    public class StatOperations : IStatOperations
+    public class StatService : IStatService
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IStatRepository _statRepository;
         private readonly IMapper _mapper;
-        public StatOperations(ApplicationDbContext context, IMapper mapper)
+
+        public StatService(IStatRepository statRepository, IMapper mapper)
         {
-            _context = context;
+            _statRepository = statRepository;
             _mapper = mapper;
         }
+
         public async Task<GameStatViewModel> GetStatsByGameId(int id)
         {
-            IQueryable<Stat> stats = _context.Stats.Where(x => x.GameId == id).Include(stat => stat.Player);
+            List<Stat> stats = await _statRepository.GetStatsByGameId(id);
 
-            
-
-            List<Stat> statsResult = await stats.ToListAsync();
-            GameStatViewModel result = new GameStatViewModel() { GameId = id };
-            result.Stats = (statsResult.Select(stat => _mapper.Map<PlayerViewModel>(stat.Player))).ToList();
-
-
+            GameStatViewModel result = new GameStatViewModel() { 
+                GameId = id,
+                Stats = stats.Select(stat => _mapper.Map<PlayerViewModel>(stat.Player)).ToList(),
+        };
+           
             return result;
-
         }
 
         public async Task<Dictionary<string, double?>> GetBasicStatsByPlayerId(int id)
         {
-            List<Stat> stats = _context.Stats.Where(stats => stats.PlayerId == id).ToList();
+            List<Stat> stats = await _statRepository.GetStatsByPlayerId(id);
+
             Dictionary<string, double?> statsAverage = new Dictionary<string, double?>();
 
             statsAverage.Add("Points", stats.Average(stat => stat.Points));
@@ -52,7 +51,7 @@ namespace Services.Services.CrudRelated
 
         public async Task<StatGameTotalViewModel> GetTotalForGame(int id)
         {
-           List<Stat> stats = await _context.Stats.Where(stat => stat.GameId == id).ToListAsync();
+            List<Stat> stats = await _statRepository.GetStatsByGameId(id);
 
             Dictionary<string, int?> total = new Dictionary<string, int?>();
 
@@ -68,6 +67,13 @@ namespace Services.Services.CrudRelated
                 GameTotal = total,
             };
             return result;
+        }
+
+        public async Task<StatViewModel> GetStatsByGameIdAndPlayerId(int gameId, int playerId)
+        {
+            var stats = await _statRepository.GetStatByGameIdAndPlayerId(gameId, playerId);
+            StatViewModel statViewModel = _mapper.Map<StatViewModel>(stats);
+            return statViewModel;
         }
     }
 }

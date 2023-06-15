@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.Contracts
+namespace Services.Services
 {
-    public interface IChartDataService
+    public interface ITeamService
     {
-        public Task<List<TeamSeasonAverageViewModel>> GetGames(int teamId);
-
+        List<TeamViewModel> GetAllTeams();
+        TeamViewModel GetTeamById(int teamId);
     }
 }

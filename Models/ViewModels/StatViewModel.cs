@@ -22,7 +22,6 @@ namespace Models.ViewModels
         public int? FreeThrowsAttempted { get; set; }
         public int? FreeThrowsMade { get; set; }
 
-
         public string? Minutes { get; set; }
         public int? OffensiveRebounds { get; set; }
         public int? PersonalFouls { get; set; }

@@ -14,6 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj" />
     <ProjectReference Include="..\ProjectData\ProjectData.csproj" />
+    <ProjectReference Include="..\RepositoryLayer\DataAccessLayer.csproj" />
   </ItemGroup>
 
 </Project>

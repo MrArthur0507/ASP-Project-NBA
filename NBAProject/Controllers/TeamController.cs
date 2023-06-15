@@ -3,30 +3,30 @@ using Models.DbModels;
 using Models.ViewModels;
 using NBAProject.Data;
 using Services.Contracts;
+using Services.Services;
 
 namespace NBAProject.Controllers
 {
     public class TeamController : Controller
     {
-        private readonly ITeamCrudOperations _teamOperations;
-
+        private readonly IPlayerService _playerService;
         private readonly IChartDataService _chartService;
-        private readonly ApplicationDbContext _context;
+        private readonly ITeamService _teamService;
 
-        public TeamController(IChartDataService chartService, ITeamCrudOperations teamOperations, ApplicationDbContext context) { 
-            _teamOperations = teamOperations;
+        public TeamController(IChartDataService chartService, IPlayerService playerService, ITeamService teamService) {
+            _playerService = playerService;
             _chartService = chartService;
-            _context = context;
+            _teamService = teamService;
         }
         public IActionResult Index()
         {
             
-            return View(_teamOperations.GetAll());
+            return View(_teamService.GetAllTeams());
         }
 
         public IActionResult Details(int id)
         {
-            TeamViewModel team = _teamOperations.GetById(id);
+            TeamViewModel team = _teamService.GetTeamById(id);
             return View(team);
         }
 
@@ -40,7 +40,7 @@ namespace NBAProject.Controllers
 
         public async Task<IActionResult> GetPlayerInTeam(int teamId)
         {
-            List<PlayerViewModel> players = _chartService.GetPlayers(teamId);
+            List<PlayerViewModel> players = _playerService.GetPlayersByTeam(teamId);
             return Json(players);
         }
     }

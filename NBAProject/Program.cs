@@ -1,11 +1,15 @@
 using ApiServices.Contracts;
 using ApiServices.Services;
 using ApiServices.Services.MicroService;
+using DataAccessLayer.Interfaces;
+using DataAccessLayer.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Models.AutoMapper;
 using NBAProject.Data;
 using ProjectData.Data;
+using RepositoryLayer.Interfaces;
+using RepositoryLayer.Repositories;
 using Services.Contracts;
 using Services.Services;
 using Services.Services.CrudRelated;
@@ -25,6 +29,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IPrint, Print>();
+// Api data services
 builder.Services.AddScoped<IBasicFetcher, BasicFetcher>();
 builder.Services.AddScoped<IBasicSeeder, BasicSeeder>();
 builder.Services.AddScoped<IPlayerSeeder, PlayerSeeder>();
@@ -34,19 +39,24 @@ builder.Services.AddScoped<IGameSeeder, GameSeeder>();
 builder.Services.AddScoped<IFetchGame, FetchGame>();
 builder.Services.AddScoped<IStatSeeder, StatSeeder>();
 builder.Services.AddScoped<IFetchStat, FetchStat>();
-builder.Services.AddScoped<IPlayerCrudOperations, PlayerCrudOperations>();
 builder.Services.AddScoped<IFetchData, FetchData>();
-builder.Services.AddScoped<ITeamCrudOperations, TeamCrudOperations>();
+//
+builder.Services.AddScoped<IPlayerCrudOperations, PlayerCrudOperations>();
 builder.Services.AddScoped<IChartDataService, ChartDataService>();
-builder.Services.AddScoped<IGameCrudOperations, GameCrudOperations>();
-builder.Services.AddScoped<ICommentOperations, CommentOperations>();
-builder.Services.AddScoped<IStatOperations, StatOperations>();
-builder.Services.AddScoped<IUserOperations, UserOperations>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
+builder.Services.AddScoped<IPlayerService, PlayerService>();
+builder.Services.AddScoped<ITeamService, TeamService>();
+builder.Services.AddScoped<ITeamRepository, TeamRepository>();
+builder.Services.AddScoped<IGameRepository, GameRepository>();
+builder.Services.AddScoped<IGameService, GameService>();
+builder.Services.AddScoped<IStatService, StatService>();
+builder.Services.AddScoped<IStatRepository, StatRepository>();
+builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
-
-
-
-
+builder.Services.AddHttpContextAccessor();
 
 
 var app = builder.Build();

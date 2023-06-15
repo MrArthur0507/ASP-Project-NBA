@@ -5,35 +5,35 @@ using Models.DbModels;
 using Models.ViewModels;
 using NBAProject.Data;
 using Services.Contracts;
+using Services.Services;
 
 namespace NBAProject.Controllers
 {
     public class PlayerController : Controller
     {
-        private readonly IPlayerCrudOperations _playerService;
 
-        private readonly ApplicationDbContext _context;
-        public PlayerController(IPlayerCrudOperations playerCrudOperations, ApplicationDbContext context)
+        private readonly IPlayerService _playerService;
+
+        public PlayerController(IPlayerService playerService)
         {
-            _playerService= playerCrudOperations;
-            _context= context;
+            _playerService = playerService;
         }
         public  IActionResult Index(int page)
         {
-            return View(_playerService.GetByPage(page));
+            return View(_playerService.GetPlayersByPage(page));
         }
 
         public async Task<IActionResult> Details(int id)
         {
-            PlayerDetailsViewModel player = await _playerService.GetById(id);
+            PlayerDetailsViewModel player = await _playerService.GetPlayerById(id);
             return View(player);
         }
 
-        public async Task<IActionResult> Create()
-        {
+        //public async Task<IActionResult> Create()
+        //{
             
-            return View(await _playerService.Create());
-        }
+        //    return View(await _playerService());
+        //}
         
         public IActionResult Search(string param)
         {

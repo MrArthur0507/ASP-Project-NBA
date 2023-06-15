@@ -29,6 +29,7 @@ namespace ApiServices.Services
 
         public async Task Fetch()
         {
+            
             await _fetchPlayer.FetchPlayersWithDelay();
             await _fetchGame.FetchGames();
             await _fetchStat.FetchStats();

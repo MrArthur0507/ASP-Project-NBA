@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Models.DbModels;
 using Models.ViewModels;
 using NBAProject.Data;
+using RepositoryLayer.Interfaces;
 using Services.Contracts;
 using System;
 using System.Collections.Generic;
@@ -14,44 +15,36 @@ namespace Services.Services
 {
 	public class ChartDataService : IChartDataService
 	{
-		private readonly ApplicationDbContext _context;
+        private readonly IGameRepository _gameRepository;
 
         private readonly IMapper _mapper;
-		public ChartDataService(ApplicationDbContext context, IMapper mapper)
+		public ChartDataService(IGameRepository gameRepository, IMapper mapper)
 		{
-			_context= context;
+            _gameRepository = gameRepository;
             _mapper = mapper;
 		}
 
         public async Task<List<TeamSeasonAverageViewModel>> GetGames(int teamId)
         {
-            IQueryable<Game> games = _context.Games.AsQueryable();
+            var games = await _gameRepository.GetGamesByTeamId(teamId);
 
-            var result = games
-           .Where(g => g.HomeTeamId == teamId || g.VisitorTeamId == teamId).ToList();
-            var grouped = result
-           .GroupBy(g => g.Season)
-           .Select(g => new TeamSeasonAverageViewModel
-           {
-               Season = g.Key,
-               AverageScoreWhenAway = (g.Where(g => g.VisitorTeamId == teamId)).Average(g => g.VisitorTeamScore),
-               AverageScoreWhenHome = (g.Where(g => g.HomeTeamId == teamId)).Average(g => g.HomeTeamScore),
-           });
+            var grouped = games
+                .GroupBy(g => g.Season)
+                .ToList();
 
-            var sortedAverages = grouped.OrderBy(sorted => sorted.Season).ToList();
+            var finalResult = grouped
+                .Select(g => new TeamSeasonAverageViewModel
+                {
+                    Season = g.Key,
+                    AverageScoreWhenAway = g.Where(g => g.VisitorTeamId == teamId).Average(g => g.VisitorTeamScore),
+                    AverageScoreWhenHome = g.Where(g => g.HomeTeamId == teamId).Average(g => g.HomeTeamScore),
+                })
+                .OrderBy(g => g.Season)
+                .ToList();
 
-            return sortedAverages.ToList();
+            return finalResult;
         }
 
 
-        public List<PlayerViewModel> GetPlayers(int teamId)
-        {
-            List<PlayerViewModel> players = _context.Players.Where(player => player.TeamId == teamId)
-            .Select(player => _mapper.Map<PlayerViewModel>(player)).ToList();
-
-
-            return players;
-            
-        }
     }
 }

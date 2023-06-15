@@ -3,3 +3,24 @@
 *@
 @{
 }
+@model List<Models.ViewModels.UserViewModel>
+
+<table>
+    <thead>
+        <tr>
+            <th>User ID</th>
+            <th>Username</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Firstname</td>
+                <td>@user.Lastname</td>
+                <td>@user.Email</td>
+            </tr>
+        }
+    </tbody>
+</table>

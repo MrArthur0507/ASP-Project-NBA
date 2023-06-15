@@ -27,7 +27,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ApiServices\ApiServices.csproj" />
     <ProjectReference Include="..\ModelsLibrary\Services.csproj" />
-    <ProjectReference Include="..\NBAProject.Services\Services.csproj" />
+    <ProjectReference Include="..\NBAProject.Services\ServiceLayer.csproj" />
     <ProjectReference Include="..\ProjectData\ProjectData.csproj" />
   </ItemGroup>
 

@@ -3,5 +3,14 @@
 *@
 @{
 }
-@model Models.ViewModels.CreateCommentViewModel
+@model Models.ViewModels.CommentViewModel
 
+<form method="post" asp-action="AddComment">
+    <div class="form-group">
+        <label for="@Model.Content">Comment</label>
+        <textarea class="form-control" id="commentContent" name="content" rows="3" required></textarea>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Add Comment</button>
+    </div>
+</form>

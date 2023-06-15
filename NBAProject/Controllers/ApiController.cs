@@ -6,10 +6,10 @@ using Newtonsoft.Json;
 
 namespace NBAProject.Controllers
 {
-    public class AdminController : Controller
+    public class ApiController : Controller
     {
         private readonly IFetchData _fetchData;
-        public AdminController(IFetchData fetchData) {
+        public ApiController(IFetchData fetchData) {
             _fetchData = fetchData;
         }
         public IActionResult Index()
@@ -17,7 +17,7 @@ namespace NBAProject.Controllers
             return View();
         }
 
-        public async Task<IActionResult> GetPlayers()
+        public async Task<IActionResult> UpdateDatabase()
         {
             await _fetchData.Fetch();
 

@@ -2,31 +2,33 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Models.DbModels;
 using Models.ViewModels;
-using NBAProject.Data;
-using Services.Contracts;
+using RepositoryLayer.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.Services.CrudRelated
+namespace Services.Services
 {
-    public class GameCrudOperations : IGameCrudOperations
+    public class GameService : IGameService
     {
-        private readonly ApplicationDbContext _context;
-
+        private readonly IGameRepository _gameRepository;
+        private readonly ITeamRepository _teamRepository;
         private readonly IMapper _mapper;
-        public GameCrudOperations(ApplicationDbContext context, IMapper mapper)
+
+        public GameService(IGameRepository gameRepository, IMapper mapper, ITeamRepository teamRepository)
         {
-            _context = context;
+            _gameRepository = gameRepository;
             _mapper = mapper;
+            _teamRepository = teamRepository;
         }
 
         public SelectTeamViewModel GetSelect()
         {
             SelectTeamViewModel model = new SelectTeamViewModel();
-            List<Team> teams = _context.Teams.ToList();
+            List<Team> teams = _teamRepository.GetAllTeams();
+
             foreach (var team in teams)
             {
                 SelectListItem listItem = new SelectListItem()
@@ -37,17 +39,17 @@ namespace Services.Services.CrudRelated
 
                 model.SelectedTeam.Add(listItem);
             }
+
             Console.WriteLine(model.SelectedTeam.Count);
             return model;
         }
+
         public List<GameViewModel> GetGames(int visitorTeamId, int homeTeamId)
         {
-            List<Game> result = _context.Games.Where(g => g.VisitorTeamId == visitorTeamId && g.HomeTeamId == homeTeamId).ToList();
-            List<GameViewModel> games = result.Select(game => _mapper.Map<GameViewModel>(game)).ToList();
-            List<GameViewModel> orderedGames = games.OrderByDescending(g => g.Season).ToList();
+            List<Game> games = _gameRepository.GetGames(visitorTeamId, homeTeamId);
+            List<GameViewModel> gameViewModels = _mapper.Map<List<GameViewModel>>(games);
+            List<GameViewModel> orderedGames = gameViewModels.OrderByDescending(g => g.Season).ToList();
             return orderedGames;
-
         }
-
     }
 }

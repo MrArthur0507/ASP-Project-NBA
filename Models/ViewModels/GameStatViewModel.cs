@@ -10,6 +10,8 @@ namespace Models.ViewModels
     {
         public int GameId { get; set; }
 
-        public List<PlayerViewModel> Stats { get; set; } = new List<PlayerViewModel>();
+        public List<PlayerViewModel> Stats { get; set; } 
+
+        public List<CommentViewModel> Comments { get; set; }
     }
 }

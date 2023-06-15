@@ -1,18 +1,19 @@
-﻿using Models.ViewModels;
+﻿using Models.DbModels;
+using Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.Contracts
+namespace Services.Services
 {
-    public interface IStatOperations
+    public interface IStatService
     {
         public Task<GameStatViewModel> GetStatsByGameId(int id);
-
         public Task<Dictionary<string, double?>> GetBasicStatsByPlayerId(int id);
-
         public Task<StatGameTotalViewModel> GetTotalForGame(int id);
+
+        public Task<StatViewModel> GetStatsByGameIdAndPlayerId(int gameId, int playerId);
     }
 }

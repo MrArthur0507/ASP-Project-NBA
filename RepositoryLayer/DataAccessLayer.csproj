@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -7,8 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ModelsLibrary\Services.csproj" />
-    <ProjectReference Include="..\NBAProject.Services\ServiceLayer.csproj" />
+    <PackageReference Include="X.PagedList" Version="8.4.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Models\Models.csproj" />
     <ProjectReference Include="..\ProjectData\ProjectData.csproj" />
   </ItemGroup>
 

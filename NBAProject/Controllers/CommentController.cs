@@ -11,37 +11,27 @@ namespace NBAProject.Controllers
 {
     public class CommentController : Controller
     {
-        private readonly ICommentOperations _commentOperations;
+        private readonly ICommentService _commentService;
 
-        public CommentController(ICommentOperations commentOperations)
+        public CommentController(ICommentService commentService)
         {
-            _commentOperations = commentOperations;
+            _commentService = commentService;
         }
 
         public IActionResult Create()
         {
 
-            return View(new CreateCommentViewModel());
+            return View(new CommentViewModel());
         }
+
         [HttpPost]
-        [Authorize]
-        public IActionResult CreateComment(string comment, int gameId)
+        public async Task<IActionResult> AddComment(CommentViewModel comment, int gameId)
         {
             if (ModelState.IsValid)
             {
-                _commentOperations.CreateComment(comment, gameId);
-
-                
-
-                return RedirectToAction("Details", "Game");
+               await _commentService.AddComment(comment, gameId);
             }
-            return View();
+            return Ok();
         }
-
-        //public async IActionResult GetByGame(int gameId)
-        //{
-            
-        //    return View(await _commentOperations.GetCommentsByGameId(gameId));
-        //}
     }
 }
