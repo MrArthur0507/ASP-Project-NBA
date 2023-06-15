@@ -12,7 +12,6 @@ using RepositoryLayer.Interfaces;
 using RepositoryLayer.Repositories;
 using Services.Contracts;
 using Services.Services;
-using Services.Services.CrudRelated;
 using Services.Services.MicroService;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -41,7 +40,6 @@ builder.Services.AddScoped<IStatSeeder, StatSeeder>();
 builder.Services.AddScoped<IFetchStat, FetchStat>();
 builder.Services.AddScoped<IFetchData, FetchData>();
 //
-builder.Services.AddScoped<IPlayerCrudOperations, PlayerCrudOperations>();
 builder.Services.AddScoped<IChartDataService, ChartDataService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();

@@ -8,17 +8,10 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
-    <PackageReference Include="X.PagedList.Mvc.Core" Version="8.4.7" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Models\Models.csproj" />
     <ProjectReference Include="..\ProjectData\ProjectData.csproj" />
-    <ProjectReference Include="..\RepositoryLayer\DataAccessLayer.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\CrudRelated\" />
   </ItemGroup>
 
 </Project>
