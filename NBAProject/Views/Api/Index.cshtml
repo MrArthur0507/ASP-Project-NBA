@@ -3,3 +3,42 @@
 *@
 @{
 }
+@model List<Models.DbModels.ApiLogger>
+
+<h1 class="text-warning text-center">Update database</h1>
+
+
+@if (Model.Count == 0)
+{
+    <p>No logs found</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr class="text-warning">
+                <th>Id</th>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Finished</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                var log = Model[i];
+                var rowClass = i % 2 == 0 ? "text-warning bg-dark" : "text-dark bg-warning";
+
+                <tr class="@rowClass">
+                    <td>@log.Id</td>
+                    <td>@log.Date</td>
+                    <td>@log.Type</td>
+                    <td>@log.isFinished</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<a class="btn btn-warning text-center" role="button" asp-action="UpdateDatabase">Update database</a>
+

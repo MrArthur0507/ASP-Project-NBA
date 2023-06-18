@@ -12,6 +12,8 @@ namespace DataAccessLayer.Interfaces
         Task<List<ApplicationUser>> GetAll();
         Task<ApplicationUser> GetUserById(string userId);
         Task<ApplicationUser> GetUserByUsername(string username);
+
+        Task DeleteUser(ApplicationUser user);
     }
 
 }

@@ -30,4 +30,8 @@
     <ProjectReference Include="..\ProjectData\ProjectData.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Stat\" />
+  </ItemGroup>
+
 </Project>

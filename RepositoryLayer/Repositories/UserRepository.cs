@@ -32,5 +32,10 @@ namespace DataAccessLayer.Repositories
         {
             return await _userManager.FindByNameAsync(username);
         }
+
+        public async Task DeleteUser(ApplicationUser user)
+        {
+            await _userManager.DeleteAsync(user);
+        }
     }
 }

@@ -14,14 +14,15 @@ namespace NBAProject.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+     
+            return View(_fetchData.GetLog());
         }
 
         public async Task<IActionResult> UpdateDatabase()
         {
             await _fetchData.Fetch();
 
-            return View();
+            return Ok("Database updated");
         }
     }
 }

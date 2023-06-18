@@ -1,0 +1,47 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Models.ViewModels.StatViewModel
+
+
+<h1>Player Stats</h1>
+
+<div class="bg-dark">
+    <canvas id="assistsChart"></canvas>
+</div>
+
+<div class="bg-dark">
+    <canvas id="threePointChart"></canvas>
+</div>
+
+<div class="bg-dark">
+    <canvas id="freeThrowChart"></canvas>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const gameId= @Model.GameId;
+    const playerId = @Model.PlayerId;
+    $(document).ready(function () {
+        $.ajax({
+            url: '/Stat/GetPlayerStatForGame?gameId=' + gameId + '&playerId=' + playerId,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                
+                
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+            }
+        });
+    });
+
+    
+        
+
+
+</script>

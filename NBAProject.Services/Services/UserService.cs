@@ -43,5 +43,10 @@ namespace Services.Services
             return userViewModel;
         }
 
+        public async Task DeleteUser(ApplicationUser user)
+        {
+            await _userRepository.DeleteUser(user);
+        }
+
     }
 }

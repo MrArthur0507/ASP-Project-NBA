@@ -31,7 +31,13 @@ namespace NBAProject.Controllers
             return Json(total.GameTotal);
         }
 
-        public async Task<IActionResult> GetStatByGameIdAndPlayerId(int gameId, int playerId)
+        public async Task<IActionResult> PlayerStatForGame(int gameId, int playerId)
+        {
+            StatViewModel statViewModel = await _statService.GetStatsByGameIdAndPlayerId(gameId, playerId);
+            return Json(statViewModel);
+        }
+
+        public async Task<IActionResult> GetPlayerStatForGame(int gameId, int playerId)
         {
             StatViewModel statViewModel = await _statService.GetStatsByGameIdAndPlayerId(gameId, playerId);
             return Json(statViewModel);

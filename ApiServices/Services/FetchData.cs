@@ -1,4 +1,5 @@
 ﻿using ApiServices.Contracts;
+using Microsoft.Extensions.Logging;
 using Models.DbModels;
 using NBAProject.Data;
 using System;
@@ -29,14 +30,47 @@ namespace ApiServices.Services
 
         public async Task Fetch()
         {
+
+            if(!CheckForStarting())
+            {
+                await _fetchPlayer.FetchPlayersWithDelay();
+                await _fetchGame.FetchGames();
+                await _fetchStat.FetchStats();
+                
+            }
             
-            await _fetchPlayer.FetchPlayersWithDelay();
-            await _fetchGame.FetchGames();
-            await _fetchStat.FetchStats();
-              
         }
 
        
+        private bool CheckForStarting()
+        {
+            ApiLogger logger = _context.ApiLogger.OrderBy(log => log.Date).LastOrDefault();
+            if (logger == null || (logger.Date - DateTime.Now).Hours > 12)
+            {
+                Console.WriteLine("Log null");
+                AddLog();
+                return false;
+            }
 
+            return true;
+        }
+
+        private void AddLog()
+        {
+            ApiLogger logger = new ApiLogger()
+            {
+                Date = DateTime.Now,
+                isFinished = false,
+                Type = "Manual",
+            };
+            _context.ApiLogger.Add(logger);
+            _context.SaveChanges();
+        }
+
+        public List<ApiLogger> GetLog()
+        {
+            return _context.ApiLogger.ToList();
+        }
+       
     }
 }

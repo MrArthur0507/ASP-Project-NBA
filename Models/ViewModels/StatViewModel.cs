@@ -26,6 +26,9 @@ namespace Models.ViewModels
         public int? OffensiveRebounds { get; set; }
         public int? PersonalFouls { get; set; }
 
+        public int GameId { get; set; }
+        public Game Game { get; set; }
+
         public int PlayerId { get; set; }
         public Player Player { get; set; }
         public int? Points { get; set; }
