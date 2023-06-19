@@ -24,6 +24,6 @@ namespace Models.DbModels
         public Team VisitorTeam { get; set; }
         public int VisitorTeamScore { get; set; }
 
-        public ICollection<Comment> Comments { get; set; }
+        
     }
 }

@@ -14,6 +14,6 @@ namespace ProjectData.Data
 
         public string LastName { get; set; }
 
-        public ICollection<Comment> Comments { get; set; }
+      
     }
 }

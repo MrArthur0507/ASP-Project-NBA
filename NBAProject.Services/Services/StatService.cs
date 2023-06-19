@@ -2,6 +2,8 @@
 using Models.DbModels;
 using Models.ViewModels;
 using RepositoryLayer.Interfaces;
+using ServiceLayer.Services;
+using Services.Contracts;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,21 +17,25 @@ namespace Services.Services
     {
         private readonly IStatRepository _statRepository;
         private readonly IMapper _mapper;
+        private readonly IReviewService _reviewService;
 
-        public StatService(IStatRepository statRepository, IMapper mapper)
+        public StatService(IStatRepository statRepository, IMapper mapper, IReviewService reviewService)
         {
             _statRepository = statRepository;
             _mapper = mapper;
+            _reviewService = reviewService;
         }
 
         public async Task<GameStatViewModel> GetStatsByGameId(int id)
         {
             List<Stat> stats = await _statRepository.GetStatsByGameId(id);
 
-            GameStatViewModel result = new GameStatViewModel() { 
+            GameStatViewModel result = new GameStatViewModel() {
                 GameId = id,
                 Stats = stats.Select(stat => _mapper.Map<PlayerViewModel>(stat.Player)).ToList(),
-        };
+                Reviews = await _reviewService.GetReviewByGameId(id),
+            };
+            result.Form = new CreateReviewViewModel() { GameId = id };
            
             return result;
         }

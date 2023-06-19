@@ -5,7 +5,7 @@
 namespace ProjectData.Migrations
 {
     /// <inheritdoc />
-    public partial class Comments : Migration
+    public partial class Reviews : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

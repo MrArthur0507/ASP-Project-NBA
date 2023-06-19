@@ -1,4 +1,5 @@
-﻿using Models.ViewModels;
+﻿using Models.DbModels;
+using Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,8 @@ namespace Services.Services
     {
         IPagedList<PlayerViewModel> GetPlayersByPage(int page);
         Task<PlayerDetailsViewModel> GetPlayerById(int id);
-        //Task<CreatePlayerViewModel> GetCreatePlayerViewModel();
-        //Task UpdatePlayer(PlayerViewModel playerViewModel);
+
+        Task AddPlayer(PlayerViewModel player);
         List<PlayerViewModel> SearchPlayers(string searchTerm);
         List<PlayerViewModel> GetPlayersByTeam(int teamId);
     }

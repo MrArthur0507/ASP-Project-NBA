@@ -16,7 +16,7 @@ namespace Models.AutoMapper
     {
         public MappingProfile()
         {
-            CreateMap<Player, PlayerViewModel>();
+            CreateMap<Player, PlayerViewModel>().ReverseMap();
             CreateMap<Player, PlayerDetailsViewModel>()
             .ForMember(dest => dest.TeamName, opt => opt.MapFrom(src => src.Team.Name))
             .ForMember(dest => dest.TeamFullname, opt => opt.MapFrom(src => src.Team.Fullname))
@@ -27,7 +27,8 @@ namespace Models.AutoMapper
             CreateMap<Player, CreatePlayerViewModel>();
             CreateMap<Stat, StatViewModel>();
             CreateMap<ApplicationUser, UserViewModel>();
-            CreateMap<Comment, CommentViewModel>().ReverseMap();
+            CreateMap<Review, ReviewViewModel>().ReverseMap();
+            CreateMap<Review, CreateReviewViewModel>().ReverseMap();
         }
 
 

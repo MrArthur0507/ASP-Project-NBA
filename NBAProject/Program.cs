@@ -1,6 +1,7 @@
 using ApiServices.Contracts;
 using ApiServices.Services;
 using ApiServices.Services.MicroService;
+using ApplicationLayer.Controllers;
 using DataAccessLayer.Interfaces;
 using DataAccessLayer.Repositories;
 using Microsoft.AspNetCore.Identity;
@@ -10,6 +11,7 @@ using NBAProject.Data;
 using ProjectData.Data;
 using RepositoryLayer.Interfaces;
 using RepositoryLayer.Repositories;
+using ServiceLayer.Services;
 using Services.Contracts;
 using Services.Services;
 using Services.Services.MicroService;
@@ -51,8 +53,8 @@ builder.Services.AddScoped<IGameRepository, GameRepository>();
 builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IStatService, StatService>();
 builder.Services.AddScoped<IStatRepository, StatRepository>();
-builder.Services.AddScoped<ICommentService, CommentService>();
-builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 builder.Services.AddHttpContextAccessor();
 

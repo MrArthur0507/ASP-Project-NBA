@@ -9,9 +9,9 @@ namespace Services.Contracts
 {
     public interface ICommentService
     {
-        Task AddComment(CommentViewModel comment, int gameId);
-        Task<List<CommentViewModel>> GetCommentsByGameId(int gameId);
-        Task<CommentViewModel> GetCommentById(int commentId);
+        Task AddComment(ReviewViewModel comment, int gameId);
+        Task<List<ReviewViewModel>> GetCommentsByGameId(int gameId);
+        Task<ReviewViewModel> GetCommentById(int commentId);
         Task DeleteComment(int commentId);
     }
 }

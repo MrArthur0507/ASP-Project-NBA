@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NBAProject.Data;
 
@@ -11,9 +12,11 @@ using NBAProject.Data;
 namespace ProjectData.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230619101252_ReviewsAdd")]
+    partial class ReviewsAdd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -179,7 +182,7 @@ namespace ProjectData.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ApiLogger", (string)null);
+                    b.ToTable("ApiLogger");
                 });
 
             modelBuilder.Entity("Models.DbModels.Game", b =>
@@ -229,7 +232,7 @@ namespace ProjectData.Migrations
 
                     b.HasIndex("VisitorTeamId");
 
-                    b.ToTable("Games", (string)null);
+                    b.ToTable("Games");
                 });
 
             modelBuilder.Entity("Models.DbModels.Meta", b =>
@@ -254,7 +257,7 @@ namespace ProjectData.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Meta", (string)null);
+                    b.ToTable("Meta");
                 });
 
             modelBuilder.Entity("Models.DbModels.Player", b =>
@@ -289,7 +292,7 @@ namespace ProjectData.Migrations
 
                     b.HasIndex("TeamId");
 
-                    b.ToTable("Players", (string)null);
+                    b.ToTable("Players");
                 });
 
             modelBuilder.Entity("Models.DbModels.Stat", b =>
@@ -371,7 +374,7 @@ namespace ProjectData.Migrations
 
                     b.HasIndex("TeamId");
 
-                    b.ToTable("Stats", (string)null);
+                    b.ToTable("Stats");
                 });
 
             modelBuilder.Entity("Models.DbModels.Team", b =>
@@ -400,7 +403,7 @@ namespace ProjectData.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Teams", (string)null);
+                    b.ToTable("Teams");
                 });
 
             modelBuilder.Entity("ProjectData.Data.ApplicationUser", b =>
@@ -479,7 +482,6 @@ namespace ProjectData.Migrations
             modelBuilder.Entity("ProjectData.Data.Review", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ApplicationUserId")
@@ -505,7 +507,7 @@ namespace ProjectData.Migrations
 
                     b.HasIndex("GameId");
 
-                    b.ToTable("Reviews", (string)null);
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

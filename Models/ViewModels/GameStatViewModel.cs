@@ -12,6 +12,8 @@ namespace Models.ViewModels
 
         public List<PlayerViewModel> Stats { get; set; } 
 
-        public List<CommentViewModel> Comments { get; set; }
+        public List<ReviewViewModel> Reviews { get; set; }
+
+        public CreateReviewViewModel Form { get; set; }
     }
 }

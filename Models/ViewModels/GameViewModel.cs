@@ -19,6 +19,6 @@ namespace Models.ViewModels
         public int VisitorTeamId { get; set; }
         public Team VisitorTeam { get; set; }
         public int VisitorTeamScore { get; set; }
-        public ICollection<Comment> Comments { get; set; }
+       
     }
 }

@@ -9,7 +9,6 @@ namespace NBAProject.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public DbSet<Comment> Comments { get; set; }
         public DbSet<Player> Players { get; set; }
         public DbSet<Team> Teams { get; set; }
 
@@ -18,6 +17,8 @@ namespace NBAProject.Data
         public DbSet<Stat> Stats { get; set; }
 
         public DbSet<ApiLogger> ApiLogger { get; set; }
+
+        public DbSet<Review> Reviews { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -34,7 +35,8 @@ namespace NBAProject.Data
             modelBuilder.Entity<Game>().Property(g => g.Id).ValueGeneratedNever();
             modelBuilder.Entity<Stat>().Property(m => m.Id).ValueGeneratedNever();
             modelBuilder.Entity<Meta>().Property(m => m.Id).ValueGeneratedNever();
-            modelBuilder.Entity<Comment>().Property(c => c.Id).ValueGeneratedNever();
+            
+
 
 
             modelBuilder.Entity<Game>()

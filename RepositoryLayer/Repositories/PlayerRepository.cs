@@ -47,5 +47,11 @@ namespace RepositoryLayer.Repositories
                 .Where(player => player.TeamId == teamId)
                 .ToList();
         }
+
+        public async Task AddPlayer(Player player)
+        {
+            await _context.Players.AddAsync(player);
+            await _context.SaveChangesAsync();
+        }
     }
 }

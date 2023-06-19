@@ -14,6 +14,7 @@ namespace RepositoryLayer.Interfaces
         Task<Player> GetById(int id);
         IEnumerable<Player> SearchPlayers(string searchTerm);
 
+        Task AddPlayer(Player player);
         List<Player> GetPlayersByTeamId(int teamId);
     }
 }

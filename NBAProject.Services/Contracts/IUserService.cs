@@ -12,8 +12,9 @@ namespace Services.Contracts
     {
         public Task<List<UserViewModel>> GetAllUsers();
         public Task<UserViewModel> GetUserById(string userId);
-
         public Task<UserViewModel> GetUserByUsername(string userId);
+        string GetUserId();
+        bool IsUserAuthenticated();
 
     }
 }

@@ -45,7 +45,7 @@ namespace ApiServices.Services
         private bool CheckForStarting()
         {
             ApiLogger logger = _context.ApiLogger.OrderBy(log => log.Date).LastOrDefault();
-            if (logger == null || (logger.Date - DateTime.Now).Hours > 12)
+            if (logger == null || (logger.Date - DateTime.Now).TotalHours > 12);
             {
                 Console.WriteLine("Log null");
                 AddLog();

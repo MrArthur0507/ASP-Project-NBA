@@ -64,5 +64,12 @@ namespace Services.Services
             List<PlayerViewModel> playerViewModels = players.Select(player => _mapper.Map<PlayerViewModel>(player)).ToList();
             return playerViewModels;
         }
+
+        public async Task AddPlayer(PlayerViewModel player)
+        {
+            Player input = _mapper.Map<Player>(player);
+
+            await _playerRepository.AddPlayer(input);
+        }
     }
 }
