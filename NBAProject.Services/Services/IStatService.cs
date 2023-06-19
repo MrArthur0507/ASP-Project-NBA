@@ -14,6 +14,6 @@ namespace Services.Services
         public Task<Dictionary<string, double?>> GetBasicStatsByPlayerId(int id);
         public Task<StatGameTotalViewModel> GetTotalForGame(int id);
 
-        public Task<StatViewModel> GetStatsByGameIdAndPlayerId(int gameId, int playerId);
+        public Task<ExtendedStatViewModel> GetStatsByGameIdAndPlayerId(int gameId, int playerId);
     }
 }

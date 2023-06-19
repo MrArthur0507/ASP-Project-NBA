@@ -38,7 +38,7 @@
                                     <a class="btn btn-outline-warning" asp-action="Details" asp-route-id="@item.Id">
                                         <i class="bi bi-eye-fill"></i> Show Details
                                     </a>
-                                    <a class="btn btn-outline-warning" asp-action="Details" asp-route-id="@item.Id">
+                                    <a class="btn btn-outline-warning" asp-action="PlayerStatForGame" asp-route-gameId="@Model.GameId" asp-route-playerId="@item.Id">
                                         <i class="bi bi-eye-fill"></i> Show Player Game Stats
                                     </a>
                                 </p>

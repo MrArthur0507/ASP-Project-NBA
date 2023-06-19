@@ -6,19 +6,29 @@
 @model Models.ViewModels.StatViewModel
 
 
-<h1>Player Stats</h1>
-
-<div class="bg-dark">
-    <canvas id="assistsChart"></canvas>
+<h1 class="text-center text-warning">Player stats for the game</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 bg-dark mb-4">
+            <h2 class="text-warning text-center">Overall stats</h2>
+            <canvas id="basicChart"></canvas>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 bg-dark mb-4">
+            <h2 class="text-center text-warning">Field Goals statistics</h2>
+            <canvas id="fieldGoalsChart"></canvas>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 bg-dark">
+            <h2 class="text-center text-warning">Free Throws statistics</h2>
+            <canvas id="freeThrowsChart"></canvas>
+        </div>
+    </div>
 </div>
 
-<div class="bg-dark">
-    <canvas id="threePointChart"></canvas>
-</div>
 
-<div class="bg-dark">
-    <canvas id="freeThrowChart"></canvas>
-</div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
@@ -31,8 +41,9 @@
             dataType: 'json',
             success: function (data) {
                 console.log(data);
-                
-                
+                createBasicChart(data);
+                createFieldChart(data);
+                createFreeThrowsChart(data);
             },
             error: function (xhr, status, error) {
                 console.log(error);
@@ -40,8 +51,83 @@
         });
     });
 
-    
+    function createBasicChart(data) {
+        var marksCanvas = document.getElementById("basicChart");
+        console.log(data);
+        var marksData = {
+            
+            datasets: [{
+                label: "Basic Stats",
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(255, 159, 64, 0.5)',
+                    'rgba(255, 205, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+
+                ],
+                data: data.basicStats,
+            }]
+        };
+
+        var barChart = new Chart(marksCanvas, {
+            type: 'bar',
+            data: marksData
+        });
+
+    }
         
+    function createFieldChart(data) {
+        var marksCanvas = document.getElementById("fieldGoalsChart");
+        console.log(data);
+        var marksData = {
+
+            datasets: [{
+                label: "Total",
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(255, 159, 64, 0.5)',
+                    'rgba(255, 205, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+
+                ],
+                data: data.fieldGoalsStats,
+            }]
+        };
+
+        var barChart = new Chart(marksCanvas, {
+            type: 'bar',
+            data: marksData
+        });
+
+    }
+     
+    function createFreeThrowsChart(data) {
+        var marksCanvas = document.getElementById("freeThrowsChart");
+        console.log(data);
+        var marksData = {
+
+            datasets: [{
+                label: "Total",
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(255, 159, 64, 0.5)',
+                    'rgba(255, 205, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+
+                ],
+                data: data.freeThrowsStats,
+            }]
+        };
+
+        var barChart = new Chart(marksCanvas, {
+            type: 'bar',
+            data: marksData
+        });
+
+    }
 
 
 </script>

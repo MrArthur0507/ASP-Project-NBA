@@ -75,11 +75,40 @@ namespace Services.Services
             return result;
         }
 
-        public async Task<StatViewModel> GetStatsByGameIdAndPlayerId(int gameId, int playerId)
+        public async Task<ExtendedStatViewModel> GetStatsByGameIdAndPlayerId(int gameId, int playerId)
         {
             var stats = await _statRepository.GetStatByGameIdAndPlayerId(gameId, playerId);
             StatViewModel statViewModel = _mapper.Map<StatViewModel>(stats);
-            return statViewModel;
+            ExtendedStatViewModel statsViewModel = new ExtendedStatViewModel()
+            {
+                BasicStats = new BasicStatViewModel()
+                {
+                    Points = stats.Points,
+                    Assists = stats.Assists,
+                    Steals = stats.Steals,
+                    Blocks = stats.Blocks,
+                    OffensiveRebounds = stats.OffensiveRebounds,
+                    DefensiveRebounds = stats.DefensiveRebounds,
+                    PersonalFouls = stats.PersonalFouls,
+                    TotalRebounds = stats.TotalRebounds,
+                },
+                FieldGoalsStats = new FieldGoalsViewModel()
+                {
+                    FieldGoalsAttempted = stats.FieldGoalsAttempted,
+                    FieldGoalPercentage = stats.FieldGoalPercentage,
+                    FieldGoalsMade = stats.FieldGoalsMade,
+                    ThreePointFieldGoalPercentage = stats.ThreePointFieldGoalPercentage,
+                    ThreePointFieldGoalsAttempted = stats.ThreePointFieldGoalsAttempted,
+                    ThreePointFieldGoalsMade = stats.ThreePointFieldGoalsMade,
+                },
+                FreeThrowsStats = new FreeThrowsViewModel()
+                {
+                    FreeThrowsAttempted = stats.FreeThrowsAttempted,
+                    FreeThrowsMade = stats.FreeThrowsMade,
+                    FreeThrowPercentage = stats.FreeThrowPercentage,
+                }
+            };
+            return statsViewModel;
         }
     }
 }

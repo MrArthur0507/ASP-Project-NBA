@@ -42,8 +42,8 @@ namespace NBAProject.Controllers
 
         public async Task<IActionResult> PlayerStatForGame(int gameId, int playerId)
         {
-            StatViewModel viewModel = await _statService.GetStatsByGameIdAndPlayerId(gameId, playerId);
-            return View(viewModel);
+            
+            return View(new StatViewModel() { GameId = gameId, PlayerId = playerId});
         }
 
     }
