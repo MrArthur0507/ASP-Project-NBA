@@ -48,18 +48,18 @@ namespace Services.Services
         }
         public string GetUserId()
         {
-            return _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        return _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         }
 
         public bool IsUserAuthenticated()
         {
             return _httpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
         }
+        
+            public async Task DeleteUser(ApplicationUser user)
+            {
+                await _userRepository.DeleteUser(user);
+            }
 
-        public async Task DeleteUser(ApplicationUser user)
-        {
-            await _userRepository.DeleteUser(user);
         }
-
-    }
 }

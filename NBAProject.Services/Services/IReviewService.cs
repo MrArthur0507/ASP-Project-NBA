@@ -15,5 +15,7 @@ namespace ServiceLayer.Services
         public Task<List<ReviewViewModel>> GetReviewByGameId(int gameId);
 
         public ReviewViewModel GetReviewForm();
+
+        public Task<ExtendedUserViewModel> GetReviewsForPlayer(string userId);
     }
 }

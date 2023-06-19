@@ -3,21 +3,37 @@
 *@
 @{
 }
-@model ProjectData.Data.ApplicationUser
+@model Models.ViewModels.ExtendedUserViewModel
 
 <div class="container">
     <div class="row h-100">
-        <div class="col-md-6 bg-dark h-100">
+        <div class="col-md-6 bg-dark h-100 mb-4 p-4">
             <h2 class="fw-bold text-warning text-center">User Details</h2>
-            <p class="text-warning">UserName</p>
-            <p class="text-warning pb-4">@Model.UserName</p>
             <p class="text-warning">Email</p>
-            <p class="text-warning">@Model.Email</p>
+            <p class="text-warning pb-4">@Model.User.Email</p>
+            <p class="text-warning">FirstName</p>
+            <p class="text-warning">@Model.User.Firstname</p>
+            <p class="text-warning">LastName</p>
+            <p class="text-warning">@Model.User.Lastname</p>
+            <form asp-controller="User" asp-action="DeleteUser" method="post">
+                <input type="hidden" name="userId" value="" />
+                <button type="submit" class="btn btn-danger">Delete User</button>
+            </form>
         </div>
+        
+    </div>
+    <div class="row">
+        @foreach (var item in Model.Comments)
+        {
+            <div class="col-md-12 bg-warning text-dark mb-3">
+                <p class="">Created at: @item.CreatedAt</p>
+                <p>Content:</p>
+                <p>@item.Content</p>
+            </div>
+        }
     </div>
 </div>
 
-<form asp-controller="User" asp-action="DeleteUser" method="post">
-    <input type="hidden" name="userId" value="@Model.Id" />
-    <button type="submit" class="btn btn-danger">Delete User</button>
-</form>
+
+
+

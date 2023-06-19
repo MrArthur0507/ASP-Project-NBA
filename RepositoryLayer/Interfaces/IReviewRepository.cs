@@ -11,5 +11,7 @@ namespace DataAccessLayer.Interfaces
     {
         public Task<List<Review>> GetAllForGameId(int gameId);
         public Task AddReview(Review comment);
+
+        public Task<List<Review>> GetByUserId(string userId);
     }
 }

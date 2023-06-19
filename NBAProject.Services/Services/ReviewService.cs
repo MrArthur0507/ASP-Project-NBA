@@ -40,11 +40,36 @@ namespace ServiceLayer.Services
             await _reviewRepository.AddReview(gameReview);
         }
 
-        public async Task<List<ReviewViewModel>> GetReviewByGameId(int gameId)
+        private List<ReviewViewModel> ConvertReviewToViewModel(List<Review> reviews)
         {
-            List<Review> reviews = await _reviewRepository.GetAllForGameId(gameId);
             List<ReviewViewModel> reviewViewModels = reviews.Select(review => _mapper.Map<ReviewViewModel>(review)).ToList();
             return reviewViewModels;
+        }
+
+        public async Task<List<ReviewViewModel>> GetReviewByGameId(int gameId)
+        {
+
+            List<ReviewViewModel> reviewViewModels = ConvertReviewToViewModel(await _reviewRepository.GetAllForGameId(gameId));
+            return reviewViewModels;
+        }
+
+        public async Task<List<ReviewViewModel>> GetReviewByUserId(string userId)
+        {
+
+            List<ReviewViewModel> reviewViewModels = ConvertReviewToViewModel(await _reviewRepository.GetByUserId(userId));
+            return reviewViewModels;
+        }
+
+        public async Task<ExtendedUserViewModel> GetReviewsForPlayer(string userId)
+        {
+            UserViewModel userViewModel = await _userService.GetUserById(userId);
+
+            ExtendedUserViewModel extendedUserViewModel = new ExtendedUserViewModel();
+            
+
+            extendedUserViewModel.User = await _userService.GetUserById(userId);
+            extendedUserViewModel.Comments = await GetReviewByUserId(userId);
+            return extendedUserViewModel;
         }
     }
 }

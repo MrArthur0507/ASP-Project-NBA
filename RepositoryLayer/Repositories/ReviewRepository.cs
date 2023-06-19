@@ -32,5 +32,10 @@ namespace DataAccessLayer.Repositories
             .Where(c => c.GameId == gameId)
             .ToListAsync();
         }
+
+        public async Task<List<Review>> GetByUserId(string userId)
+        {
+            return await _context.Reviews.Where(review => review.UserId == userId).ToListAsync();
+        }
     }
 }

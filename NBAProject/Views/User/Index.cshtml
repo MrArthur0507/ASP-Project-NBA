@@ -33,7 +33,14 @@ else
                     <td>@user.Firstname</td>
                     <td>@user.Lastname</td>
                     <td>@user.Email</td>
+                    <td>
+                    <a class="btn btn-light" asp-action="UserDetails" asp-route-id="@user.Id">
+                    <i class="bi bi-eye-fill"></i> Show Details</a>
+                    </td>
+                    
+                
                 </tr>
+                
             }
         </tbody>
     </table>
